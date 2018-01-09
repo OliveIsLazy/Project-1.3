@@ -14,6 +14,7 @@
 
 Branch: A temporary clone of the source code in question.
 Can be freely modified without affecting the original.
+
   - The master branch is **not** a clone but the trunk of the tree, if you will.
   
 Commit: Contains all the changes made from the clone or fork of a branch.
@@ -22,6 +23,7 @@ The edited code one has commited to submitting.
 Fork: A copy of a branch to your repo for you to edit without affecting the source branch. *(stub)*
 
 Issue: An issue can be a bug report, a request for a new feature, a request for help or even a question. 
+
   - Issues are created with a title and a description called a label.
   
 Pull Request: A notification that a contributor is pushing a commit which needs reviewing before being merged.
