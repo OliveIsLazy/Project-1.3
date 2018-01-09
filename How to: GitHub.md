@@ -98,7 +98,7 @@ This page is mostly self explanitory. Tinker around yourself if you're that inte
 
 This page has four main sections: High bar, project information area, source code and a README.md file.
 
-    ###### 1. The high bar
+######     1. The high bar
 
 The high bar has 5 publically available tabs plus two more if this is your repo, the wiki and settings tabs.
 
