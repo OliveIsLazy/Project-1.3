@@ -126,11 +126,11 @@ The high bar has 5 publically available tabs plus two more if this is your repo,
 
   1. Code, the files and the source code associated with the repo.
   
-  2. Issues, the issues associated with the repo. 
+  2. Issues, the issues associated with the repo.
   
-  - Has a subcategory which shows what labels an issue can have i.e. bug. They are colour coordinated.
+  - Has a subcategory which shows what labels an issue can have i.e. bug. They are colour coordinated. *(stub)*
   
-  - Also shows Milestones which allows for specific tasks to be set along with a deadline for their completion. 
+  - Also shows Milestones which allows for specific tasks to be set along with a deadline for their completion. *(stub)* 
   
   3. Pull Requests, pull requests that need reviewing associated with the repo.
   
