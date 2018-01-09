@@ -8,6 +8,8 @@
 
 [GitHub's keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
 
+[Creating folders in a repo](https://stackoverflow.com/questions/18773598/creating-folders-inside-github-com-repo-without-using-git)
+
 [Documentation](https://guides.github.com/features/wikis/)
 
 [Setting up a project](https://help.github.com/articles/about-project-boards/)
