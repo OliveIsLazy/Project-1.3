@@ -4,7 +4,7 @@
 
 [Original GitHub tutorial](https://www.pluralsight.com/blog/software-development/github-tutorial)
 
-[How to write on with flavored Markdown syntax on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
+[How to write on with flavored Markdown syntax on GitHub](https://guides.github.com/features/mastering-markdown/)
 
 [GitHub's keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
 
