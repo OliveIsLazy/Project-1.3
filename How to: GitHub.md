@@ -114,6 +114,11 @@ Cheat Sheet.
 
 
 
+#### Interacting with others *(stub)*
+
+You can [mention](https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-people-and-teams) others in posts you make. Mentions are indicated using @. For example, to mention me you would type `@OliveIsLazy`. This will give me a notifcation that allows me to see what you mentioned me in.
+
+
 ### Using GitHub
 
 #### Project page
