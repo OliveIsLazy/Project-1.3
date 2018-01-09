@@ -6,6 +6,8 @@
 
 [How to write on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
 
+[GitHub#s keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
+
 [Documentation](https://guides.github.com/features/wikis/)
 
 [Setting up a project](https://help.github.com/articles/about-project-boards/)
@@ -164,8 +166,17 @@ The .md extension is important as without it the file will be taken as a file ho
 
 You can make a new project by creating a new repo, assigning a liscence (defaulting to MIT lisense is recommended). *(stub)*
 
-Projects allow for more micromangaing than a plain old repo does due to the addition of milestones.
-Milestones allow for specific tasks to be set along with a deadline for their completion.
+Projects allow for more micromangaing than a plain old repo does.
+
+- Kanban layout, helps track tasks use three columns: To do, in progress and done.
+
+- Cards, tiles that have writing on them i.e. finish recursive code in the search method.
+  - Can be dragged from column to column.
+  - Can be turned into an issue.
+  - Markdown syntax applies to cards.
+  - Can have [automised](https://help.github.com/articles/configuring-automation-for-project-boards/) movement. *(stub)*
+
+- Milestones allow for specific tasks to be set along with a deadline for their completion.
 
 
 
