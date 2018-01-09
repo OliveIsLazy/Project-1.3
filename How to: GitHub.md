@@ -8,6 +8,8 @@
 
 [GitHub's keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
 
+[GitHub youtube video guide's (playlist)](https://www.youtube.com/user/GitHubGuides/playlists)
+
 [Creating folders in a repo](https://stackoverflow.com/questions/18773598/creating-folders-inside-github-com-repo-without-using-git)
 
 [Moving files into a folder](https://help.github.com/articles/moving-a-file-to-a-new-location/)
@@ -27,8 +29,7 @@
 
 *(stub)*: shorthand to say that this piece of information is incomplete or possibly inaccurate due to lack of knowledge or experience.
 
-Branch: A temporary clone of the source code in question.
-Can be freely modified without affecting the original.
+Branch: A clone of the master branch in question that can be freely modified without affecting the original. *(stub)*
 
   - The master branch is **not** a clone but the trunk of the tree, if you will.
   
@@ -37,7 +38,7 @@ The edited code one has commited to submitting.
 
 Documentation, updated records of a repo or a project to make it more easily accessible for the uninformed.
 
-Fork: A copy of a branch to your repo for you to edit without affecting the source branch. *(stub)*
+Fork: A copy of someone else's repo to your own repo for you to edit without affecting the source. *(stub)*
 
 Issue: An issue can be a bug report, a request for a new feature, a request for help or even a question. 
 
@@ -89,7 +90,8 @@ Your chosen email can be hidden from public view.
 
 Your account must be verified before using.
 
-Emails are used for keeping you updated about changes made to your repos or the repos you follow. *(stub)*
+Emails are used for keeping you updated about changes made to your repos or the repos you follow.
+The extent your email is used can be changed in your user settings.
 
 Your profile essentially three sections: personal information, your repos and your contributions.
 
@@ -155,7 +157,7 @@ When you are viewing a specific file from the repo, you will be at the source co
   
   - History, Shows you the recent commits made chronologically, along with their contributor.
   
-  - Open this file in GitHub Desktop, an application made to streamline using GitHub. *(stub)*
+  - Open this file in [GitHub Desktop](https://desktop.github.com/), opens the file in GitHub Desktop, an open source application made to streamline using GitHub.
   
   - Edit, allows you to modify the text. Can only be done if you're signed in as you can edit only your own repos, else GitHub will automatically fork it you one of your account's repos so you can edit the text.
   
