@@ -180,7 +180,7 @@ A lisence tells other users what you can and cannot do with your software. In re
 
 > You're under no obligation to choose a license. However, without a license, the default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
 
-GitHub help also suggests using [this](https://choosealicense.com/) to help you choose your lisence.
+GitHub help also created [this](https://choosealicense.com/) to help you choose your lisence.
 
 The MIT lisence is a common lisence if you don't really know what to do and want to have a project open source.
 
@@ -210,7 +210,7 @@ Projects allow for more micromangaing than a plain old repo does.
   - Can be dragged from column to column.
   - Can be turned into an issue.
   - Markdown syntax applies to cards.
-  - Can have [automised](https://help.github.com/articles/configuring-automation-for-project-boards/) movement. *(stub)*
+  - Can have [automised](https://help.github.com/articles/about-automation-for-project-boards/) card creation and movement.
   
   When you're done with a project, you can click on the menu option on the right and click close, indicating that this project is complete or no longer in use.
 
