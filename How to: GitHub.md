@@ -6,7 +6,7 @@
 
 [How to write on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
 
-[GitHub#s keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
+[GitHub's keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
 
 [Documentation](https://guides.github.com/features/wikis/)
 
