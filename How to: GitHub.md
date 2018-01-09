@@ -58,6 +58,8 @@ Depending on how you want to use releases, it can be either lots of small change
 
 Repository: A central location in which data is stored and managed. Repo is shorthand.
 
+Static Website: A website where what is shown in directly coded for that site rather than accessing a server to show information.
+
 
 
 ### Understanding the UI
@@ -234,16 +236,16 @@ Take the head to mean the file you're pushing and the base to be the place you w
 
 ### Documentation and Communication *(stub)*
 
-GitHub pages, for documentation. *(stub)*
+[GitHub Pages](https://pages.github.com/), hosted directly from a GitHub repo for documentation. *(stub)*
 
 Wiki, for documentation. *(stub)*
 
-Jekyll, free site hosting service from the creators of GitHub. *(stub)*
+[Jekyll](https://jekyllrb.com/), a free static site generator that allows for easy blogging from the creators of GitHub. *(stub)*
 
-Stack, communication app. *(stub)*
+[Stack](https://slack.com/features), communication app. *(stub)*
 
-  - If This Then That (IFTTT), app that does x when y happens, making message sending and notifcations automatic.
+  - If This Then That [(IFTTT)](https://ifttt.com/), app that does x when y happens, making message sending and notifcations automatic.
   
-  - Glitter is an alternate. *(stub)*
+  - [Glitter](https://gitter.im/) is an alternate. *(stub)*
 
-Trello, *(stub)*
+[Trello](https://trello.com/), for keeping things (projects) organised. *(stub)*
