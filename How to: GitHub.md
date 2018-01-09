@@ -35,19 +35,8 @@ Pushing: A contributor putting forward code they wish to be added to the master 
 Repository: A central location in which data is stored and managed. Repo is shorthand.
 
 
-
-### Signing up and your Profile Page
-
-Your chosen email can be hidden from public view.
-
-Your account must be verified before using.
-
-Emails are used for *(stub)*
-
-Your profile essentially three sections: personal information, your repos and your contributions.
-
-
 ### Understanding the UI
+
 
 #### Black Tool Bar
 
@@ -66,3 +55,26 @@ Explore: Search for sets of repositories that have a joining theme i.e. artifici
 The + dropdown menu: for creating new or importing old content i.e. repositories, issues.
 
 The avatar dropdown menu: regular profile settings.
+
+
+#### Signing up and your Profile Page
+
+Your chosen email can be hidden from public view.
+
+Your account must be verified before using.
+
+Emails are used for keeping you updated about changes made to your repos or the repos you follow. *(stub)*
+
+Your profile essentially three sections: personal information, your repos and your contributions.
+
+There are 5 tabs on your profile: Overview, Repos, Stars, Followers and Following.
+
+  - Stars are GitHub's equivelant to likes
+  
+  - Following and followers is similar to twitter's setup.
+  
+This page is mostly self explanitory. Tinker around yourself if you're that interested!
+
+
+
+
