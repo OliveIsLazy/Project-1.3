@@ -126,7 +126,11 @@ The high bar has 5 publically available tabs plus two more if this is your repo,
 
   1. Code, the files and the source code associated with the repo.
   
-  2. Issues, the issues associated with the repo.
+  2. Issues, the issues associated with the repo. 
+  
+  - Has a subcategory which shows what labels an issue can have i.e. bug. They are colour coordinated.
+  
+  - Also shows Milestones which allows for specific tasks to be set along with a deadline for their completion. 
   
   3. Pull Requests, pull requests that need reviewing associated with the repo.
   
@@ -170,6 +174,10 @@ The .md extension is important as without it the file will be taken as a file ho
 
 
 
+#### Lisences *(stub)*
+
+
+
 #### Files and folders
 
 When you're interacting with a depo, note what branch you're looking at.
@@ -183,9 +191,9 @@ A folder must have at least one file in it so create a temporary file to finalis
 
 
 
-#### Projects *(stub)*
+#### Projects
 
-You can make a new project by creating a new repo, assigning a liscence (defaulting to MIT lisense is recommended). *(stub)*
+You can make a new project by creating a new repo, assigning a liscence.
 
 Projects allow for more micromangaing than a plain old repo does.
 
@@ -196,8 +204,8 @@ Projects allow for more micromangaing than a plain old repo does.
   - Can be turned into an issue.
   - Markdown syntax applies to cards.
   - Can have [automised](https://help.github.com/articles/configuring-automation-for-project-boards/) movement. *(stub)*
-
-- Milestones allow for specific tasks to be set along with a deadline for their completion.
+  
+  When you're done with a project, you can click on the menu option on the right and click close, indicating that this project is complete or no longer in use.
 
 
 
