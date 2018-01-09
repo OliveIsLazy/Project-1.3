@@ -153,7 +153,7 @@ When you are viewing a specific file from the repo, you will be at the source co
   
   - History, Shows you the recent commits made chronologically, along with their contributor.
   
-  - Open this file in GitHub Desktop, the name is self explanitory. *(stub)*
+  - Open this file in GitHub Desktop, an application made to streamline using GitHub. *(stub)*
   
   - Edit, allows you to modify the text. Can only be done if you're signed in as you can edit only your own repos, else GitHub will automatically fork it you one of your account's repos so you can edit the text.
   
@@ -163,6 +163,19 @@ When you are viewing a specific file from the repo, you will be at the source co
 
 A decription og the project, its main documents, how to download and use it as well as any additional information.
 The .md extension is important as without it the file will be taken as a file holding source code. the .md extension allows users to apply the [flavoured Markdown syntax](https://help.github.com/articles/about-writing-and-formatting-on-github/) GitHub uses to stylise files.
+
+
+
+#### Files and folders
+
+When you're interacting with a depo, note what branch you're looking at.
+To better understand folders and moving files, think of the repo in question as the super folder, the folder that holds all folders.
+If you want to create a new folder, it must not have a unique name in the current folder.
+
+[To create a new folder](https://stackoverflow.com/questions/18773598/creating-folders-inside-github-com-repo-without-using-git), select new file, type the folder's name in the file name bar and then add a /.
+A folder must have at least one file in it so create a temporary file to finalise the creation of the folder.
+
+[To move an existing file into a different folder](https://help.github.com/articles/moving-a-file-to-a-new-location/), you follow a similar process. You edit the file and change it's name to add it to a different folder directory.
 
 
 
