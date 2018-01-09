@@ -33,6 +33,8 @@ Issue: An issue can be a bug report, a request for a new feature, a request for 
   
   - Red issues are issues that have been solved (closed) and green issues need fixing still (are open).
   
+Projects, specific goals set for a repo to achieve.
+  
 Pull Request: A notification that a contributor is pushing a commit which needs reviewing before being merged.
 
 Pulling: The master branch taking in code from a contributor.
@@ -96,7 +98,7 @@ This page is mostly self explanitory. Tinker around yourself if you're that inte
 
 This page has four main sections: High bar, project information area, source code and a README.md file.
 
-###### 1. The high bar
+    ###### 1. The high bar
 
 The high bar has 5 publically available tabs plus two more if this is your repo, the wiki and settings tabs.
 
@@ -106,7 +108,7 @@ The high bar has 5 publically available tabs plus two more if this is your repo,
   
   3. Pull Requests, pull requests that need reviewing associated with the repo.
   
-  4. Projects, *(stub)*
+  4. Projects, shows all the projects associated with the repo.
   
   5. Insights, statistics relating to the repo.
   
@@ -118,11 +120,11 @@ There are also three buttons above these tabs relevant for interacting with othe
   
   - Fork, allows you to create a clone of this repo.
   
-###### 2. Project information area
+######     2. Project information area
 
 Holds a short description or useful links for the repo and 5 counters: Commits, branches, releases, contributors and the repo's liscence.
 
-###### 3. Source code area
+######     3. Source code area
 
 When you are viewing a specific file from the repo, you will be at the source code interface:
 
@@ -139,9 +141,10 @@ When you are viewing a specific file from the repo, you will be at the source co
   
   - Delete, allows you to delete the file. You also need to be signed in for the aforementioned reasons.
 
-###### 4. The README.md file
+######     4. The README.md file
 
 A decription og the project, its main documents, how to download and use it as well as any additional information.
+The .md extension is important as without it the file will be taken as a file holding source code. the .md extension allows users to apply the [flavoured Markdown syntax](https://help.github.com/articles/about-writing-and-formatting-on-github/) GitHub uses to stylise files.
 
 
 
@@ -150,7 +153,7 @@ A decription og the project, its main documents, how to download and use it as w
 You can make a new project by creating a new repo, assigning a liscence (defaulting to MIT lisense is recommended). *(stub)*
 
 Projects allow for more micromangaing than a plain old repo does due to the addition of milestones.
-Mile stones allow for specific tasks to be set along with a deadline for their completion.
+Milestones allow for specific tasks to be set along with a deadline for their completion.
 
 
 
@@ -158,7 +161,7 @@ Mile stones allow for specific tasks to be set along with a deadline for their c
 
 Contributing to a repo or a project involve forking, pull requests, cloning, commits, pushing and pulling. It's the actual  practice of all the stuff I've been explaining so far to share code via Git.
 
-###### Git
+######     Git
 
 Git is a source code control system that allows users to sync files together, like drop box, allowing multiple people to have access to the same files despite changes other people may make to them over time.
 GitHub, therefore, is the community that results of people being able to share and use code from an online database, hub meaning a centre of an active network.
@@ -175,7 +178,7 @@ Git's syncing process tends to follow the same pattern:
 5. Submit a pull request for your commit.
 
 
-###### How to: Pull request
+######     How to: Pull request
 
 1. Fork your file or clone it in some way, so you may tinker around with it.
 
