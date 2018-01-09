@@ -6,10 +6,16 @@
 
 [How to write on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
 
+[Documentation](https://guides.github.com/features/wikis/)
+
+[Setting up a project](https://help.github.com/articles/about-project-boards/)
+
+[What is Git?](https://git-scm.com/documentation)
 
 
 
-### Glossary
+
+### Glossary (alphabetised)
 
 #### You may need to refer to other definitions within the glossary to understand the keyword you're looking up
 
