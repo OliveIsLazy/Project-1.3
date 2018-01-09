@@ -4,7 +4,7 @@
 
 [Original GitHub tutorial](https://www.pluralsight.com/blog/software-development/github-tutorial)
 
-[How to write on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
+[How to write on with flavoured Markdown syntax on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
 
 [GitHub's keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
 
@@ -176,6 +176,13 @@ The .md extension is important as without it the file will be taken as a file ho
 
 #### Lisences *(stub)*
 
+A lisence tells other users what you can and cannot do with your software. In regards to choosing a lisence (from [help.GitHub](https://help.github.com/articles/licensing-a-repository/)):
+
+> You're under no obligation to choose a license. However, without a license, the default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
+
+GitHub help also suggests using [this](https://choosealicense.com/) to help you choose your lisence.
+
+The MIT lisence is a common lisence if you don't really know what to do and want to have a project open source.
 
 
 #### Files and folders
