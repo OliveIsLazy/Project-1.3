@@ -86,7 +86,7 @@ There are 5 tabs on your profile: Overview, Repos, Stars, Followers and Followin
 This page is mostly self explanitory. Tinker around yourself if you're that interested!
 
 
-#### Searching for new projects
+#### Searching for new projects *(stub)*
 
 
 
@@ -161,6 +161,7 @@ Contributing to a repo or a project involve forking, pull requests, cloning, com
 ###### Git
 
 Git is a source code control system that allows users to sync files together, like drop box, allowing multiple people to have access to the same files despite changes other people may make to them over time.
+GitHub, therefore, is the community that results of people being able to share and use code from an online database, hub meaning a centre of an active network.
 Git's syncing process tends to follow the same pattern:
 
 1. (Fork and then) clone.
