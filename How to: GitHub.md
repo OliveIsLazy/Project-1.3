@@ -4,7 +4,7 @@
 
 [Original GitHub tutorial](https://www.pluralsight.com/blog/software-development/github-tutorial)
 
-[How to write on with flavoured Markdown syntax on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
+[How to write on with flavored Markdown syntax on GitHub](https://help.github.com/articles/about-writing-and-formatting-on-github/)
 
 [GitHub's keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
 
@@ -154,7 +154,7 @@ Holds a short description or useful links for the repo and 5 counters: Commits, 
 
 When you are viewing a specific file from the repo, you will be at the source code interface:
 
-  - Raw, shows you the text as it is written. This is relevant when you want to ignore the flavoured Markdown syntax GitHub uses.
+  - Raw, shows you the text as it is written. This is relevant when you want to ignore the flavored Markdown syntax GitHub uses.
   
   - Blame, reorganises the file in question so that the right side shows you the raw file with some colour coordination and the left side shows you who modified the file, which lines and how long ago.
   In between the two sides are little tags that can show you how the file looked before a blame was made.
@@ -170,7 +170,7 @@ When you are viewing a specific file from the repo, you will be at the source co
 ###### 4. The README.md file
 
 A decription og the project, its main documents, how to download and use it as well as any additional information.
-The .md extension is important as without it the file will be taken as a file holding source code. the .md extension allows users to apply the [flavoured Markdown syntax](https://help.github.com/articles/about-writing-and-formatting-on-github/) GitHub uses to stylise files.
+The .md extension is important as without it the file will be taken as a file holding source code. the .md extension allows users to apply the [flavored Markdown syntax](https://help.github.com/articles/about-writing-and-formatting-on-github/) GitHub uses to stylise files.
 
 
 
