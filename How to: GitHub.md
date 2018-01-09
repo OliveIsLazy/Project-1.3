@@ -23,7 +23,7 @@ Can be freely modified without affecting the original.
 Commit: Contains all the changes made from the clone or fork of a branch.
 The edited code one has commited to submitting.
 
-Documentation, *(stub)*
+Documentation, updated records of a repo or a project to make it more easily accessible for the uninformed.
 
 Fork: A copy of a branch to your repo for you to edit without affecting the source branch. *(stub)*
 
@@ -90,6 +90,12 @@ This page is mostly self explanitory. Tinker around yourself if you're that inte
 
 #### Searching for new projects *(stub)*
 
+Basic Search.
+
+Advanced Search.
+
+Cheat Sheet.
+
 
 
 ### Using GitHub
@@ -98,7 +104,7 @@ This page is mostly self explanitory. Tinker around yourself if you're that inte
 
 This page has four main sections: High bar, project information area, source code and a README.md file.
 
-######     1. The high bar
+###### 1. The high bar
 
 The high bar has 5 publically available tabs plus two more if this is your repo, the wiki and settings tabs.
 
@@ -120,11 +126,11 @@ There are also three buttons above these tabs relevant for interacting with othe
   
   - Fork, allows you to create a clone of this repo.
   
-######     2. Project information area
+###### 2. Project information area
 
 Holds a short description or useful links for the repo and 5 counters: Commits, branches, releases, contributors and the repo's liscence.
 
-######     3. Source code area
+###### 3. Source code area
 
 When you are viewing a specific file from the repo, you will be at the source code interface:
 
@@ -141,7 +147,7 @@ When you are viewing a specific file from the repo, you will be at the source co
   
   - Delete, allows you to delete the file. You also need to be signed in for the aforementioned reasons.
 
-######     4. The README.md file
+###### 4. The README.md file
 
 A decription og the project, its main documents, how to download and use it as well as any additional information.
 The .md extension is important as without it the file will be taken as a file holding source code. the .md extension allows users to apply the [flavoured Markdown syntax](https://help.github.com/articles/about-writing-and-formatting-on-github/) GitHub uses to stylise files.
@@ -161,7 +167,7 @@ Milestones allow for specific tasks to be set along with a deadline for their co
 
 Contributing to a repo or a project involve forking, pull requests, cloning, commits, pushing and pulling. It's the actual  practice of all the stuff I've been explaining so far to share code via Git.
 
-######     Git
+###### Git
 
 Git is a source code control system that allows users to sync files together, like drop box, allowing multiple people to have access to the same files despite changes other people may make to them over time.
 GitHub, therefore, is the community that results of people being able to share and use code from an online database, hub meaning a centre of an active network.
@@ -178,7 +184,7 @@ Git's syncing process tends to follow the same pattern:
 5. Submit a pull request for your commit.
 
 
-######     How to: Pull request
+###### How to: Pull request
 
 1. Fork your file or clone it in some way, so you may tinker around with it.
 
