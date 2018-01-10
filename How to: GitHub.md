@@ -67,56 +67,68 @@ Static Website: A website where what is shown in directly coded for that site ra
 
 #### Black Tool Bar
 
-Icon: GitHub's homepage, appearance differs whether you're signed in or not.
+- Icon: GitHub's homepage, appearance differs whether you're signed in or not.
 
-Search bar: To find new projects by repository name. Search options can be configured on the search page.
+- Search bar: To find new projects by repository name. Search options can be configured on the search page.
 
-Pull requests: Shows all pull requests relevant to you. *(stub)*
+- Pull requests: Shows all pull requests relevant to you. *(stub)*
 
-Issues: Shows all issues relevant to you. *(stub)*
+- Issues: Shows all issues relevant to you. *(stub)*
 
-Marketplace: Apps that modify GitHub. Your apps can be viewed at settings> delevoper settings
+- [Marketplace](https://help.github.com/articles/about-github-marketplace/): Apps that modify GitHub. Your apps can be viewed at settings> delevoper settings
 
-Explore: Search for sets of repositories that have a joining theme i.e. artificial learning.
+- Explore: Search for sets of repositories that have a joining theme i.e. artificial learning.
 
-The + dropdown menu: for creating new or importing old content i.e. repositories, issues.
+- The bell icon: Clicking on it takes you to a page showing all notifications while hovering over it shows you recent ones.
 
-The avatar dropdown menu: regular profile settings.
+- The + dropdown menu: for creating new or importing old content i.e. repositories, issues.
+
+- The avatar dropdown menu: regular profile settings.
 
 
 #### Signing up and your Profile Page
 
+Your account must be verified before you can use it.
 Your chosen email can be hidden from public view.
-
-Your account must be verified before using.
-
 Emails are used for keeping you updated about changes made to your repos or the repos you follow.
 The extent your email is used can be changed in your user settings.
 
 Your profile essentially three sections: personal information, your repos and your contributions.
+There are also 5 tabs on your profile: Overview, Repos, Stars, Followers and Following.
 
-There are 5 tabs on your profile: Overview, Repos, Stars, Followers and Following.
-
-  - Stars are GitHub's equivelant to likes
+  - Stars: GitHub's equivelant to likes
   
   - Following and followers is similar to twitter's setup.
   
 This page is mostly self explanitory. Tinker around yourself if you're that interested!
 
 
-#### Searching for new projects *(stub)*
+#### Searching for new projects
 
-Basic Search.
+To quickly go to the [home search page](https://github.com/search?utf8=%E2%9C%93&q=&type=), click the search bar and press enter. Or if you already have a keyword or phrase in mind, type it in and press enter (make sure the search bar doesn't have "This repository" to the left of it). *(stub)*
 
-Advanced Search.
+If you're searching for something specific, you'll be taken the a results page with basic search configuration to the left.
 
-Cheat Sheet.
+You can choose which of the 6 categories you want your keyphrase to check a match against: repositories, code, commits, issues, wikis and users.
+Below the six categories you can narrow down your search by selecting which coding language you want your result to show.
+
+At the bottom of the basic search configuration are two links: Advanced search and cheat sheet.
+Advance search shows up below the search bar on the search home page accompanied by prefixes, which is the cheat sheet.
+
+Advanced search is highly customisable, allowing you narrow down results based on all parameters i.e. number of stars, code file extensions, time updated, location and even file size.
+
+The cheat sheet allows you to use advanced search by typing shortcuts into the search bar. For example, to find repos associated with the word cat and have greater than 100 stars, you can type `cat stars:>100`.
 
 
 
 #### Interacting with others *(stub)*
 
 You can [mention](https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-people-and-teams) others in posts you make. Mentions are indicated using @. For example, to mention me you would type `@OliveIsLazy`. This will give me a notifcation that allows me to see what you mentioned me in.
+
+Issues can also be used to interact with other people as you can have multiple comments on an issue, [as such](https://github.com/yenchenlin/DeepLearningFlappyBird/issues/8).
+The same applies to [pull requests](https://github.com/yenchenlin/DeepLearningFlappyBird/pull/14), meaning messaging apps may be redundant when using GitHub as long as the contributors regularly check for new notifications and respond to them timely.
+
+
 
 
 ### Using GitHub
@@ -127,7 +139,7 @@ This page has four main sections: High bar, project information area, source cod
 
 ###### 1. The high bar
 
-The high bar has 5 publically available tabs plus two more if this is your repo, the wiki and settings tabs.
+The high bar has 5 publically available tabs plus two more if this is your repo (the wiki and settings tabs).
 
   1. Code, the files and the source code associated with the repo.
   
@@ -174,25 +186,27 @@ When you are viewing a specific file from the repo, you will be at the source co
 
 ###### 4. The README.md file
 
-A decription og the project, its main documents, how to download and use it as well as any additional information.
-The .md extension is important as without it the file will be taken as a file holding source code. the .md extension allows users to apply the [flavored Markdown syntax](https://help.github.com/articles/about-writing-and-formatting-on-github/) GitHub uses to stylise files.
+A decription of the project, its main documents, how to download and use it as well as any additional information.
+The extension .md denotes that the file is written with [flavored Markdown syntax](https://help.github.com/articles/about-writing-and-formatting-on-github/), a syntax GitHub uses to stylise text, and can be replaced with the .txt extension.
+The file extension of a file is important so be sure to add it i.e. add .py for python code files, .java for java code files.
 
 
 
-#### Lisences *(stub)*
+#### Licenses *(stub)*
 
-A lisence tells other users what you can and cannot do with your software. In regards to choosing a lisence (from [help.GitHub](https://help.github.com/articles/licensing-a-repository/)):
+A license tells other users what you can and cannot do with your software. In regards to choosing a license (from [help.GitHub](https://help.github.com/articles/licensing-a-repository/)):
 
 > You're under no obligation to choose a license. However, without a license, the default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
 
-GitHub help also created [this](https://choosealicense.com/) to help you choose your lisence.
+GitHub help also created [this](https://choosealicense.com/) to help you choose your license.
 
-The MIT lisence is a common lisence if you don't really know what to do and want to have a project open source.
+The MIT license is a common license if you don't really know what to do and want to have a project open source.
 
 
-#### Files and folders
+#### Files, folders and other stuff
 
 When you're interacting with a depo, note what branch you're looking at.
+
 To better understand folders and moving files, think of the repo in question as the super folder, the folder that holds all folders.
 If you want to create a new folder, it must not have a unique name in the current folder.
 
@@ -200,6 +214,12 @@ If you want to create a new folder, it must not have a unique name in the curren
 A folder must have at least one file in it so create a temporary file to finalise the creation of the folder.
 
 [To move an existing file into a different folder](https://help.github.com/articles/moving-a-file-to-a-new-location/), you follow a similar process. You edit the file and change it's name to add it to a different folder directory.
+
+##### Branches
+
+You can create a new branch by click on the branch dropdown menu and typing in the search bar the name of the new branch. Then click create new branch.
+
+To configure or delete existing branches, go to the repo's main page and select the branch label below the repo description.
 
 
 
@@ -256,18 +276,20 @@ You may hear terms like head of the fork or base of the fork.
 Take the head to mean the file you're pushing and the base to be the place you want it to be added to.
 
 
+
+
 ### Documentation and Communication *(stub)*
 
-[GitHub Pages](https://pages.github.com/), hosted directly from a GitHub repo for documentation. *(stub)*
+[GitHub Pages](https://pages.github.com/), hosted directly from a GitHub repo for documentation.
 
-Wiki, for documentation. *(stub)*
+[Wiki](https://guides.github.com/features/wikis/), for documentation.
 
-[Jekyll](https://jekyllrb.com/), a free static site generator that allows for easy blogging from the creators of GitHub. *(stub)*
+[Jekyll](https://jekyllrb.com/), a free static site generator that allows for easy blogging from the creators of GitHub.
 
-[Stack](https://slack.com/features), communication app. *(stub)*
+[Slack](https://slack.com/features), communication app.
 
-  - If This Then That [(IFTTT)](https://ifttt.com/), app that does x when y happens, making message sending and notifcations automatic.
+  - If This Then That [(IFTTT)](https://ifttt.com/), an app for slack that does x when y happens, making message sending and notifcations automatic.
   
-  - [Glitter](https://gitter.im/) is an alternate. *(stub)*
-
-[Trello](https://trello.com/), for keeping things (projects) organised. *(stub)*
+  - [Glitter](https://gitter.im/) is an alternate to Slack.
+  
+[Trello](https://trello.com/), for keeping things (projects) organised.
