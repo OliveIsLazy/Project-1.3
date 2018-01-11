@@ -35,8 +35,7 @@ Branch: A clone of the master branch in question that can be freely modified wit
 
   - The master branch is **not** a clone but the trunk of the tree, if you will.
   
-Commit: Contains all the changes made from the clone or fork of a branch.
-The edited code one has commited to submitting.
+Commit: Shows all the changes made from an update with a title and label.
 
 Documentation, updated records of a repo or a project to make it more easily accessible for the uninformed.
 
