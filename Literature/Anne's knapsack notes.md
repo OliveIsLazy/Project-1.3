@@ -12,8 +12,7 @@ Knapsack problems can be defined in 3 ways:
 
 It is defined such that we: 
 
-> Maximize [this]()with the value of a certain parcel, and the amount of said parcel (The sum of all the
-values in the container).
+> Maximize [The sum of all the values in the container through this formula](https://en.wikipedia.org/wiki/Knapsack_problem#Definition), with *V i* being the value of a certain parcel, and *X i* the number of said v-parcel.
 
 Subject to with the weight of each object, in our case we’d replace this with volume. However it’s a bit more complicated than that, because not only does the sum of the total volume of our parcels need to be smaller than the volume of our container (obviously), we’d have to make sure it fits (because we can’t saw any boxes in half).
 
