@@ -1,6 +1,6 @@
 # How to contribute
 In order to even affect another person's).
-repo, you need to be a contributor. In order for this to happen the person has to [invite](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/) you to be one and you must [accept it]() going your [notifications page](https://github.com/notifications?all=1).
+repo, you need to be a contributor. In order for this to happen the person has to [invite](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/) you to be one and you must accept it by going to your [notifications page](https://github.com/notifications?all=1).
 Alternatively, you can check your email for a link to accept the invitation.
 Once you're a contributor, you will be able to affect the contents of a repo.
 
