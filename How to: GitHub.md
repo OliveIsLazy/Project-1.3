@@ -6,6 +6,8 @@
 
 [How to write on with flavored Markdown syntax on GitHub](https://guides.github.com/features/mastering-markdown/)
 
+[Contributing guide lines](https://github.com/OliveIsLazy/Project-1.3/blob/master/CONTRIBUTING.md)
+
 [GitHub's keyboard shortcuts](https://help.github.com/articles/using-keyboard-shortcuts/)
 
 [GitHub youtube video guide's (playlist)](https://www.youtube.com/user/GitHubGuides/playlists)
@@ -122,6 +124,8 @@ The cheat sheet allows you to use advanced search by typing shortcuts into the s
 
 
 #### Interacting with others *(stub)*
+
+[How to interact with others on a group project](https://github.com/OliveIsLazy/Project-1.3/blob/master/CONTRIBUTING.md).
 
 You can [mention](https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-people-and-teams) others in posts you make. Mentions are indicated using @. For example, to mention me you would type `@OliveIsLazy`. This will give me a notifcation that allows me to see what you mentioned me in.
 
