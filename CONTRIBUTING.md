@@ -6,7 +6,7 @@ Once you're a contributor, you will be able to affect the contents of a repo.
 
 #### When to upload a file
 Really whenever the hell you want, as long as having it in the repo doesn't break anything.
-Standard code sharing rules apply (what we did with googledrive).
+Just treat the repo as another harddrive, one you need internet to access and other people can access too.
 Remember when you upload your code to give it a title and label!
 
 #### When to make a branch
