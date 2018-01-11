@@ -4,7 +4,8 @@ of each item to include in a collection so that the total weight is less than
 or equal to a given limit and the total value is as large as possible.
 
 
- hello
+ 
+
 
 
 In our case however, we’re not working with
@@ -25,6 +26,9 @@ knapsack problem.
 
 The unbounded knapsack problem is the one
 we’ll need for this project.
+
+
+ 
 
 
 It is defined such that we: 
