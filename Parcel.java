@@ -111,7 +111,7 @@ public class Parcel extends JComponent
 
   public void draw(Graphics2D g2)
   {
-    double[] projPoint = {400.0, 0.0, 0.0};
+    double[] projPoint = {0.0, 0.0, 400.0};
     double[][] plan = proj2D(coords, projPoint);
     /*
     boolean[][] links = { {false,true,true,false,true,false,false,false, false},
@@ -233,6 +233,7 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
       m2D[0][k] = (dX*600)/(dZ*500)*50;
       m2D[1][k] = (dY*600)/(dZ*500)*50;
     }
+    printArray(m2D);
     return m2D;
   }
 
