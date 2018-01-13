@@ -32,8 +32,8 @@ public class Parcel extends JComponent
   private int wichOne;
 //  private int wichOne;
   private boolean rotatable;
-  private double xLeft = 300;
-  private double yTop = 200;
+  private double xLeft = 600;
+  private double yTop = 500;
   private int scale = 70;
 
   //constructor
@@ -137,7 +137,7 @@ public class Parcel extends JComponent
     }
 
     */
-    double[] projPoint = {100.0, 100.0, 100.0};
+    double[] projPoint = {460.0, 750.0, 100.0};
     double[][] plan = proj2D(coords, projPoint);
 
 
@@ -195,15 +195,6 @@ public class Parcel extends JComponent
     double[][] m2D = new double[2][m3D.length];
 
 
-
-
-    for(int k = 0; k < m3D.length; k++)
-    {
-      //the point if the center of projection was 0, if 0,0,0 is the eye
-      double X = coordsForProj[0][k] - projCenter[0];
-      double Y = coordsForProj[1][k] - projCenter[1];
-      double Z = coordsForProj[2][k] - projCenter[2];
-
     //  double deltaX = -projCenter[0];
     //  double deltaY = -projCenter[1];
     //  double deltaZ = -projCenter[2];
@@ -213,9 +204,19 @@ public class Parcel extends JComponent
     //        0,PI/2,0        OK
     //        0,0,PI/2                              OK
 
-    double deltaX = 0;
-    double deltaY = 0;
-    double deltaZ = 0;
+
+    double deltaX = PI/2 -acos((projCenter[0]*0 + projCenter[1]*100 + projCenter[2]*0)/(sqrt(projCenter[0]*projCenter[0] + projCenter[1]*projCenter[1] + projCenter[2]*projCenter[2])*100));
+    double deltaY = PI/2 -acos((projCenter[0]*100 + projCenter[1]*0 + projCenter[2]*0)/(sqrt(projCenter[0]*projCenter[0] + projCenter[1]*projCenter[1] + projCenter[2]*projCenter[2])*100));
+    double deltaZ = PI/2 -acos((projCenter[0]*0 + projCenter[1]*0 + projCenter[2]*100)/(sqrt(projCenter[0]*projCenter[0] + projCenter[1]*projCenter[1] + projCenter[2]*projCenter[2])*100));
+
+    System.out.println(deltaX + "  " + deltaY + "  " + deltaZ);
+    for(int k = 0; k < m3D.length; k++)
+    {
+      //the point if the center of projection was 0, if 0,0,0 is the eye
+      double X = coordsForProj[0][k] - projCenter[0];
+      double Y = coordsForProj[1][k] - projCenter[1];
+      double Z = coordsForProj[2][k] - projCenter[2];
+
 
       double cX = Math.cos(deltaX);
       double cY = Math.cos(deltaY);
