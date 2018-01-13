@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JComponent;
 import java.awt.Polygon;
+import static java.lang.Math.*;
 
 public class Parcel extends JComponent
 {
@@ -111,8 +112,6 @@ public class Parcel extends JComponent
 
   public void draw(Graphics2D g2)
   {
-    double[] projPoint = {0.0, 0.0, 400.0};
-    double[][] plan = proj2D(coords, projPoint);
     /*
     boolean[][] links = { {false,true,true,false,true,false,false,false, false},
                           {true,false,false,true,false,true,false,false, false},
@@ -138,6 +137,10 @@ public class Parcel extends JComponent
     }
 
     */
+    double[] projPoint = {100.0, 100.0, 100.0};
+    double[][] plan = proj2D(coords, projPoint);
+
+
     int[][] link = {{1,2},{1,4},{1,5},{2,3},{2,6},{3,4},{3,7},{4,8},{5,6},{6,7},{7,8},{8,5}};
     for (int i = 0; i < link.length; i++)
     {
@@ -147,12 +150,14 @@ public class Parcel extends JComponent
       g2.draw(line);
     }
 
-    double[][] basis = {{1000,0,0},{0,1000,0},{0,0,1000}, {0,0,0}};
+    double[][] basis = {{300,0,0},{0,300,0},{0,0,300}, {0,0,0}};
     double[][] basisRep = proj2D(basis, projPoint);
     Point2D.Double point0 = new Point2D.Double((xLeft + basisRep[0][3]), (yTop + basisRep[1][3]));
+    System.out.println(""+ (xLeft + basisRep[0][3]) + "  " + (yTop + basisRep[1][3]));
     for (int i = 0; i < basis.length-1; i++)
     {
       Point2D.Double point2 = new Point2D.Double((xLeft + basisRep[0][i]), (yTop + basisRep[1][i]));
+      System.out.println(""+ (xLeft + basisRep[0][i]) + "  " + (yTop + basisRep[1][i]));
       Line2D.Double line = new Line2D.Double(point0, point2);
       g2.draw(line);
     }
@@ -189,11 +194,43 @@ public class Parcel extends JComponent
     //1  1  1
     double[][] m2D = new double[2][m3D.length];
 
+
+
+
     for(int k = 0; k < m3D.length; k++)
     {
-      double dX = coordsForProj[0][k] - projCenter[0];
-      double dY = coordsForProj[1][k] - projCenter[1];
-      double dZ = coordsForProj[2][k] - projCenter[2];
+      //the point if the center of projection was 0, if 0,0,0 is the eye
+      double X = coordsForProj[0][k] - projCenter[0];
+      double Y = coordsForProj[1][k] - projCenter[1];
+      double Z = coordsForProj[2][k] - projCenter[2];
+
+    //  double deltaX = -projCenter[0];
+    //  double deltaY = -projCenter[1];
+    //  double deltaZ = -projCenter[2];
+    // what  works
+    //point of projection : (100,0,0)  (0,100,0)  (0,0,100)
+    //deltas: PI/2,0,0                    OK
+    //        0,PI/2,0        OK
+    //        0,0,PI/2                              OK
+
+    double deltaX = 0;
+    double deltaY = 0;
+    double deltaZ = 0;
+
+      double cX = Math.cos(deltaX);
+      double cY = Math.cos(deltaY);
+      double cZ = Math.cos(deltaZ);
+
+      double sX = Math.sin(deltaX);
+      double sY = Math.sin(deltaY);
+      double sZ = Math.sin(deltaZ);
+
+      double dX = cY*(sZ*Y + cZ*X) - sY*Z;
+      double dY = sX*(cY*Z + sY*(sZ*Y + cZ*X)) + cX*(cZ*Y - sZ*X);
+      double dZ = cX*(cY*Z + sY*(sZ*Y + cZ*X)) - sX*(cZ*Y - sZ*X);
+
+      m2D[0][k] = (dX*400)/(dZ*400)*100;
+      m2D[1][k] = (dY*400)/(dZ*400)*100;
 
   //    double[][] projMat = {  {1, 0, -(eX/eZ), 0},
   //                            {0, 1, -(eY/eZ), 0},
@@ -230,10 +267,7 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
 
 
 
-      m2D[0][k] = (dX*600)/(dZ*500)*50;
-      m2D[1][k] = (dY*600)/(dZ*500)*50;
     }
-    printArray(m2D);
     return m2D;
   }
 
