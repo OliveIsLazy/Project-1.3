@@ -4,11 +4,13 @@ public class BasicAlgorithm
 {
     private Container container;
     private Parcel[] boxList;
+    private Parcel[][] allOders;
 
     public BasicAlgorithm(Container c, Parcel[] pList)
     {
       container = c;
       boxList = pList;
+      allOders = new Permutation(boxList).getPermutationArray();
     }
 
     /*
@@ -29,10 +31,20 @@ public class BasicAlgorithm
     }
     */
 
-    public int maximizeValue()
-    { return maximizeValueInternal(boxList.length-1, container);  }
+    public int maximize(String type)
+    {
+        int max = 0;
+        for (int i=0; i<allOders.length; i++)
+        {
+            if ( type.toLowerCase().equals("value") )
+                max = Math.max( max, maximizeValue(allOders[i].length-1, container) );
+            if ( type.toLowerCase().equals("volume") )
+                max = Math.max( max, maximizeVolume(allOders[i].length-1, container) );
+        }
+        return max;
+    }
 
-    public int maximizeValueInternal(int index, Container c)
+    public int maximizeValue(int index, Container c)
     {
       int resultValue;
       // base case
@@ -42,34 +54,52 @@ public class BasicAlgorithm
       else
       {
           // option 1- without this box
-          int temp1 = maximizeValueInternal(index - 1, c);
+          int temp1 = maximizeValue(index - 1, c);
           // option 2- with this box
           Container c2 = (Container) c.clone();
           int[] free = c2.getFreePoint();
           c2.fill(free[0],free[1],free[2], boxList[index]);
-          int temp2 = boxList[index].getValue() + maximizeValueInternal(index - 1, c2);
+          int temp2 = boxList[index].getValue() + maximizeValue(index - 1, c2);
           resultValue = Math.max(temp1, temp2);
       }
       return resultValue;
     }
 
+    public int maximizeVolume(int index, Container c)
+    {
+      int resultVolume;
+      // base case
+      if (index==-1 || c.relevant(boxList[index])==false)
+          resultVolume = c.getVolume();
+      // recursive step
+      else
+      {
+          // option 1- without this box
+          int temp1 = maximizeVolume(index - 1, c);
+          // option 2- with this box
+          Container c2 = (Container) c.clone();
+          int[] free = c2.getFreePoint();
+          c2.fill(free[0],free[1],free[2], boxList[index]);
+          int temp2 = maximizeVolume(index - 1, c2);
+          resultVolume = Math.max(temp1, temp2);
+      }
+      return resultVolume;
+    }
+
     public static void main(String[] args)
     {
       Container container = new Container();
-      Parcel[] parcelsList = new Parcel[6];
-      for (int i=0; i<parcelsList.length; i++)
-      {
-         String t;
-         double x = (10*Math.random());
-  	     if (x < 3.3) {t = "A";}
-  	     else if (x < 6.6) {t = "B";}
-  	     else {t = "C";}
-         parcelsList[i] = new Parcel(t);
-         System.out.println(t);
-      }
+      GenerateParcelList generator = new GenerateParcelList(3, "random");
+      Parcel[] parcelsList = generator.getList();
+      System.out.println("Parcels list: ");
+      generator.print();
       BasicAlgorithm myAlgorithm = new BasicAlgorithm(container, parcelsList);
-      int x = myAlgorithm.maximizeValue();
-      System.out.println(x);
+      // max value
+      int x = myAlgorithm.maximize("value");
+      System.out.println("Result value: " + x);
+      // max volume
+      int y = myAlgorithm.maximize("volume");
+      System.out.println("Result volume: " + y);
     }
 
 } // class
