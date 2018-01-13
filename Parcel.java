@@ -137,7 +137,7 @@ public class Parcel extends JComponent
     }
 
     */
-    double[] projPoint = {460.0, 750.0, 100.0};
+    double[] projPoint = {100.0, 100.0, 0.0};
     double[][] plan = proj2D(coords, projPoint);
 
 
@@ -179,6 +179,7 @@ public class Parcel extends JComponent
     //    g2.draw(line3);
     //    g2.draw(p);
   }
+
   public double[][] proj2D(double[][] m3D, double[] projCenter)
   {
     double[][] coordsForProj = new double[m3D[0].length + 1][m3D.length];
@@ -205,9 +206,17 @@ public class Parcel extends JComponent
     //        0,0,PI/2                              OK
 
 
-    double deltaX = PI/2 -acos((projCenter[0]*0 + projCenter[1]*100 + projCenter[2]*0)/(sqrt(projCenter[0]*projCenter[0] + projCenter[1]*projCenter[1] + projCenter[2]*projCenter[2])*100));
-    double deltaY = PI/2 -acos((projCenter[0]*100 + projCenter[1]*0 + projCenter[2]*0)/(sqrt(projCenter[0]*projCenter[0] + projCenter[1]*projCenter[1] + projCenter[2]*projCenter[2])*100));
-    double deltaZ = PI/2 -acos((projCenter[0]*0 + projCenter[1]*0 + projCenter[2]*100)/(sqrt(projCenter[0]*projCenter[0] + projCenter[1]*projCenter[1] + projCenter[2]*projCenter[2])*100));
+    double deltaX = PI/2 + acos(((-projCenter[0])*0 + (-projCenter[1])*100 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
+    double deltaY = PI/2 + acos(((-projCenter[0])*100 + (-projCenter[1])*0 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
+    double deltaZ = PI/2 + acos(((-projCenter[0])*0 + (-projCenter[1])*0 + (-projCenter[2])*100)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
+
+    double cX = Math.cos(deltaX);
+    double cY = Math.cos(deltaY);
+    double cZ = Math.cos(deltaZ);
+
+    double sX = Math.sin(deltaX);
+    double sY = Math.sin(deltaY);
+    double sZ = Math.sin(deltaZ);
 
     System.out.println(deltaX + "  " + deltaY + "  " + deltaZ);
     for(int k = 0; k < m3D.length; k++)
@@ -217,14 +226,6 @@ public class Parcel extends JComponent
       double Y = coordsForProj[1][k] - projCenter[1];
       double Z = coordsForProj[2][k] - projCenter[2];
 
-
-      double cX = Math.cos(deltaX);
-      double cY = Math.cos(deltaY);
-      double cZ = Math.cos(deltaZ);
-
-      double sX = Math.sin(deltaX);
-      double sY = Math.sin(deltaY);
-      double sZ = Math.sin(deltaZ);
 
       double dX = cY*(sZ*Y + cZ*X) - sY*Z;
       double dY = sX*(cY*Z + sY*(sZ*Y + cZ*X)) + cX*(cZ*Y - sZ*X);
