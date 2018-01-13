@@ -1,31 +1,98 @@
-public class Container{
+import java.util.Vector;
+//import java.io.*;
+
+public class Container
+{
 
 	private boolean[][][] cMatrix;
 	private int[] freePoint = new int[3];
+	private int containerNumber;
+	private int volume;
+	private static int counter = 1;
+	private static Vector v = new Vector();
 
+	// Constructors
 	public Container()
 	{
 			cMatrix = new boolean[8][5][33];
-			// freePoint = {0,0,0};
+			volume = 0;
+			updateNumber();
 	}
 
 	public Container(int h, int w, int l)
 	{
 			cMatrix = new boolean[h][w][l];
-			// freePoint = {0,0,0};
+			volume = 0;
+			updateNumber();
 	}
 
-	public int[] getFreePoint()
-	{ return freePoint; }
+	public Container(int noNeedNumber)
+	{
+			cMatrix = new boolean[8][5][33];
+			volume = 0;
+	}
 
+	// instance methods
+
+	// create the number of the container (same containers have same number)
+	public boolean updateNumber()
+	{
+		// checking if there is a match. if it finds a match, it updates the container number.
+		for (int i=0; i<v.size(); i++)
+		{
+				Container x = (Container) v.elementAt(i);
+				if ( this.sameMatrix(x) )
+				{
+						this.containerNumber = x.getNumber();
+						//System.out.println("sameMatrix");
+						return true;
+				}
+		}
+		// if not - create a new number and keep this object
+		this.containerNumber = counter;
+		counter++;
+		v.add(this);
+		// print the nembers of the new vector
+		for (int i=0; i<v.size(); i++)
+		{
+				Container x = (Container) v.elementAt(i);
+				// System.out.println("vector: " + x.getNumber());
+		}
+		return false;
+	}
+
+	// checking if the other objact is a container with the same cMatrix as this.
+	public boolean sameMatrix(Object otherObject)
+	{
+		if (otherObject == null) return false;
+		if (getClass() != otherObject.getClass()) return false;
+		Container other = (Container) otherObject;
+
+		for (int i=0; i<cMatrix.length; i++)
+				for (int j=0; j<cMatrix[i].length; j++)
+						for (int k=0; k<cMatrix[i][j].length; k++)
+						{
+								if ( cMatrix.length!=other.getMatrix().length || cMatrix[i].length!=other.getMatrix()[i].length || cMatrix[i][j].length!=other.getMatrix()[i][j].length)
+										return false;
+								if (cMatrix[i][j][k] != other.getMatrix()[i][j][k])
+										return false;
+						}
+		return true;
+	}
+
+	// creating a clone of this
 	public Object clone()
 	{
-		Container cloned = new Container();
+		Container cloned = new Container(0);
 		cloned.cMatrix = cMatrix;
 		cloned.freePoint = freePoint;
+		cloned.containerNumber = containerNumber;
+		cloned.volume = volume;
 		return cloned;
 	}
 
+	// checking the first spot we can fit the box
+	// NEED TO CHANGE FOR EVERY SPOT?
 	public boolean relevant(Parcel p){
 	for(int i = 0; i<cMatrix.length; i++){
 		for(int j = 0; j<cMatrix[0].length; j++){
@@ -41,6 +108,7 @@ public class Container{
 		return false;
 	}
 
+	// checking if a box can be fit for a given point
 	public boolean fit(int i, int j, int k, Parcel p){
 		int[][] coords = p.getCoords();
 		for(int m = 0; m<coords.length; m++){
@@ -51,12 +119,39 @@ public class Container{
 	return true;
 	}
 
+	// fitting a box in a given point, and updates the number
 	public void fill(int i, int j, int k, Parcel p){
 			int[][] coords = p.getCoords();
 			for(int m = 0; m<coords.length; m++){
 					if ( i+coords[m][0]<cMatrix.length && j+coords[m][1]<cMatrix[0].length && k+coords[m][2]<cMatrix[0][0].length )
-							cMatrix[ i+coords[m][0]][j+coords[m][1]][k+coords[m][2]] = true;
+							cMatrix[ i+coords[m][0]][j+coords[m][1]][k+coords[m][2] ] = true;
 			}
+			updateNumber();
+			updateVolume();
 	}
 
+	public void updateVolume()
+	{
+		int counter = 0;
+		for(int i = 0; i<cMatrix.length; i++)
+			for(int j = 0; j<cMatrix[0].length; j++)
+				for(int k = 0; k<cMatrix[0][0].length; k++)
+					if (cMatrix[i][j][k])
+							counter++;
+		volume = counter;
 	}
+
+	// setters and getters
+	public boolean[][][] getMatrix()
+	{ return cMatrix;}
+
+	public int[] getFreePoint()
+	{ return freePoint; }
+
+	public int getNumber()
+	{ return containerNumber; }
+
+	public int getVolume()
+	{ return volume/2; }
+
+}
