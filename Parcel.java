@@ -10,9 +10,9 @@ import javax.swing.JComponent;
 import java.awt.Polygon;
 import static java.lang.Math.*;
 
-public class Parcel extends JComponent
+public class Parcel3D extends JComponent
 {
-  // the 3D array with the coordonnes of the points of every pentomino we're going to use.
+  // the 3D array with the coordonnes of the points of every shape of Parcel that we're going to use.
   private double[][][] coordOfAll =
     {
       //0 A
@@ -20,24 +20,25 @@ public class Parcel extends JComponent
       //1 B
       { {-1, 0.75, 0.5}, {-1, -0.75, 0.5}, {-1, -0.75, -0.5}, {-1, 0.75, -0.5}, {1, 0.75, 0.5}, {1, -0.75, 0.5}, {1, -0.75, -0.5}, {1, 0.75, -0.5}, {0,0,0}},
       //2 C
-      { {-0.75, 0.75, 0.75}, {-0.75, -0.75, 0.75}, {-0.75, -0.75, -0.75}, {-0.75, 0.75, -0.75}, {0.75, 0.75, 0.75}, {0.75, -0.75, 0.75}, {0.75, -0.75, -0.75}, {0.75, 0.75, -0.75}, {0,0,0}}
+      { {-0.75, 0.75, 0.75}, {-0.75, -0.75, 0.75}, {-0.75, -0.75, -0.75}, {-0.75, 0.75, -0.75}, {0.75, 0.75, 0.75}, {0.75, -0.75, 0.75}, {0.75, -0.75, -0.75}, {0.75, 0.75, -0.75}, {0,0,0}},
+      { {-(16.5/2), (2.5/2), 2}, {-(16.5/2), -(2.5/2), 2}, {-(16.5/2), -(2.5/2), -2}, {-(16.5/2), (2.5/2), -2}, {(16.5/2), (2.5/2), 2}, {(16.5/2), -(2.5/2), 2}, {(16.5/2), -(2.5/2), -2}, {(16.5/2), (2.5/2), -2}, {0,0,0}}
     };
-  // the coords of the Parcel that we use are initialised, without any values yet
+  // the coords of the Parcel3D that we use are initialised, without any values yet
   private double[][] coords = new double[9][3];
-  // the colors of each Pent, im the order
-  private Color[] colors = {Color.blue, Color.green, Color.red};
-  // initialisation of the color of the Pent that we're going to use
+  // the colors of each parcel (for more visibility)
+  private Color[] colors = {Color.blue, Color.green, Color.red, Color.BLACK};
+  // initialisation of the color of the parcel that we're going to use
   private Color color;
   //to know wich on we are using
-  private int wichOne;
-//  private int wichOne;
-  private boolean rotatable;
-  private double xLeft = 600;
-  private double yTop = 500;
-  private int scale = 70;
+  private int wichOne
+  // to define the place of the origin (0,0,0)
+  private double xLeft = 300;
+  private double yTop = 300;
+  //to facilte fisibility
+  private int scale = 50;
 
   //constructor
-  public Parcel(int wichOne)
+  public Parcel3D(int wichOne)
   {
     this.wichOne = wichOne;
     color = colors[wichOne];
@@ -46,25 +47,32 @@ public class Parcel extends JComponent
             coords[i][j] = coordOfAll[wichOne][i][j]*scale;
   }
 
-  public void setPlace(int startx, int starty)
+//
+  public void setPlace(int newx, int newy, int newz)
   {
     for(int i = 0; i<coordOfAll[0].length; i++)
     {
-  		coords[i][0] = coords[i][0]+ startx;
-  		coords[i][1] = coords[i][1]+ starty;
-
+  		coords[i][0] = coordOfAll[wichOne][i][0]+ newx;
+  		coords[i][1] = coordOfAll[wichOne][i][1]+ newy;
+      coords[i][2] = coordOfAll[wichOne][i][2]+ newz;
   	}
   }
-/*
-  public void translationsX(int z)
-  {
-    for(int i = 0; i<coordOfAll[0].length; i++){
-      coords[i][0] = coords[i][0]+ startx;
-      coords[i][1] = coords[i][1]+ starty;
-    }
-  }
-*/
 
+  public void translationsX(int addx)
+  {
+    for(int i = 0; i<coords.length; i++)
+      coords[i][0] += addx;
+  }
+  public void translationsY(int addy)
+  {
+    for(int i = 0; i<coords.length; i++)
+      coords[i][1] += addy;
+  }
+  public void translationsX(int addz)
+  {
+    for(int i = 0; i<coords.length; i++)
+      coords[i][1] += addz;
+  }
 
   public Color getColor()
   {
@@ -112,35 +120,12 @@ public class Parcel extends JComponent
 
   public void draw(Graphics2D g2)
   {
-    /*
-    boolean[][] links = { {false,true,true,false,true,false,false,false, false},
-                          {true,false,false,true,false,true,false,false, false},
-                          {true,false,false,true,false,false,true,false, false},
-                          {false,true,true,false,false,false,false,true, false},
-                          {true,false,false,false,false,true,true,false, false},
-                          {false,true,false,false,true,false,false,true, false},
-                          {false,false,true,false,true,false,false,true, false},
-                          {false,false,false,true,false,true,true,false, false},
-                          {false,false,false,false,false,false,false,false,false}
-                        };
+    //define the point of view
+    double[] projPoint = {20.0, 500.0, 200.0};
 
-    for (int i = 0; i < plan[0].length; i++)
-    {
-      Point2D.Double point1 = new Point2D.Double((xLeft + plan[0][i]), (yTop + plan[1][i]));
-      for(int j = 0; j < plan[0].length; j++)
-      if (links[i][j] == true)
-      {
-        Point2D.Double point2 = new Point2D.Double((xLeft + plan[0][j]), (yTop + plan[1][j]));
-        Line2D.Double line = new Line2D.Double(point1, point2);
-        g2.draw(line);
-      }
-    }
-
-    */
-    double[] projPoint = {100.0, 100.0, 0.0};
     double[][] plan = proj2D(coords, projPoint);
 
-
+    //links between the points to draw the parcells
     int[][] link = {{1,2},{1,4},{1,5},{2,3},{2,6},{3,4},{3,7},{4,8},{5,6},{6,7},{7,8},{8,5}};
     for (int i = 0; i < link.length; i++)
     {
@@ -149,35 +134,25 @@ public class Parcel extends JComponent
       Line2D.Double line = new Line2D.Double(point1, point2);
       g2.draw(line);
     }
-
+    //orthogonal basis need to be removed
     double[][] basis = {{300,0,0},{0,300,0},{0,0,300}, {0,0,0}};
     double[][] basisRep = proj2D(basis, projPoint);
     Point2D.Double point0 = new Point2D.Double((xLeft + basisRep[0][3]), (yTop + basisRep[1][3]));
+    Ellipse2D.Double origin = new Ellipse2D.Double((xLeft + basisRep[0][3]-5), (yTop + basisRep[1][3]-5), 10, 10);
+    g2.draw(origin);
+
     System.out.println(""+ (xLeft + basisRep[0][3]) + "  " + (yTop + basisRep[1][3]));
     for (int i = 0; i < basis.length-1; i++)
     {
       Point2D.Double point2 = new Point2D.Double((xLeft + basisRep[0][i]), (yTop + basisRep[1][i]));
       System.out.println(""+ (xLeft + basisRep[0][i]) + "  " + (yTop + basisRep[1][i]));
       Line2D.Double line = new Line2D.Double(point0, point2);
+      Ellipse2D.Double window = new Ellipse2D.Double((xLeft + basisRep[0][i]-2), (yTop + basisRep[1][i]-2), 4, 4);
+  //    g2.setColor(Color.black);
+      g2.setColor(colors[i]);
       g2.draw(line);
+      g2.draw(window);
     }
-    // add links between point
-
-  //  Rectangle2D.Double face1 = new Rectangle2D.Double(xLeft - coords[0][0]*scale, yTop - coords[0][2]*scale, Math.abs(coords[0][0]*scale*2), Math.abs(coords[0][2]*scale*2));
-    //Rectangle2D.Double face2 = new Rectangle2D.Double(xLeft - coords[0][0]*scale - perspectiveX, yTop - coords[0][2]*scale - perspectiveY, Math.abs(coords[0][0]*scale*2), Math.abs(coords[0][2]*scale*2));
-
-    //Point2D.Double point1 = new Point2D.Double(xLeft + plan[0][0], yTop - coords[0][2]);
-    //Point2D.Double point2 = new Point2D.Double(xLeft + coords[0][0], yTop - coords[0][2]);
-    //    Point2D.Double point3 = new Point2D.Double(xLeft, yTop);
-    //    Line2D.Double line1 = new Line2D.Double(point1, point2);
-    //    Line2D.Double line2 = new Line2D.Double(point2, point3);
-    //    Line2D.Double line3 = new Line2D.Double(point3, point1);
-//    g2.draw(face1);
-  //  g2.draw(face2);
-    //    g2.draw(line1);
-    //    g2.draw(line2);
-    //    g2.draw(line3);
-    //    g2.draw(p);
   }
 
   public double[][] proj2D(double[][] m3D, double[] projCenter)
@@ -205,10 +180,15 @@ public class Parcel extends JComponent
     //        0,PI/2,0        OK
     //        0,0,PI/2                              OK
 
+//PI - acos(((-projCenter[0])*100 + (-projCenter[1])*0 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100))
 
-    double deltaX = PI/2 + acos(((-projCenter[0])*0 + (-projCenter[1])*100 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
-    double deltaY = PI/2 + acos(((-projCenter[0])*100 + (-projCenter[1])*0 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
-    double deltaZ = PI/2 + acos(((-projCenter[0])*0 + (-projCenter[1])*0 + (-projCenter[2])*100)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
+    double deltaX = PI - asin(((-projCenter[1])*100)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
+    double deltaY = PI - asin(((-projCenter[0])*100 + (-projCenter[1])*0 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
+    double deltaZ = 0;
+    //    double deltaX = PI/4;
+  //  double deltaY = 0;
+    //double deltaZ = 0;
+
 
     double cX = Math.cos(deltaX);
     double cY = Math.cos(deltaY);
@@ -219,6 +199,7 @@ public class Parcel extends JComponent
     double sZ = Math.sin(deltaZ);
 
     System.out.println(deltaX + "  " + deltaY + "  " + deltaZ);
+    System.out.println("PI/2 = " + PI/2 + "PI/4 = " + PI/4);
     for(int k = 0; k < m3D.length; k++)
     {
       //the point if the center of projection was 0, if 0,0,0 is the eye
@@ -231,8 +212,8 @@ public class Parcel extends JComponent
       double dY = sX*(cY*Z + sY*(sZ*Y + cZ*X)) + cX*(cZ*Y - sZ*X);
       double dZ = cX*(cY*Z + sY*(sZ*Y + cZ*X)) - sX*(cZ*Y - sZ*X);
 
-      m2D[0][k] = (dX*400)/(dZ*400)*100;
-      m2D[1][k] = (dY*400)/(dZ*400)*100;
+      m2D[0][k] = (dX*400)/(dZ*400)*200;
+      m2D[1][k] = (dY*400)/(dZ*400)*200;
 
   //    double[][] projMat = {  {1, 0, -(eX/eZ), 0},
   //                            {0, 1, -(eY/eZ), 0},
@@ -304,7 +285,7 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
   {
     Graphics2D g2 = (Graphics2D)g;
 
-    Parcel parcelTest = new Parcel(wichOne);
+    Parcel3D parcelTest = new Parcel3D(wichOne);
 
     parcelTest.draw(g2);
   }
