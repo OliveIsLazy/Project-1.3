@@ -152,6 +152,6 @@ public class Container
 	{ return containerNumber; }
 
 	public int getVolume()
-	{ return volume/2; }
+	{ return volume; }
 
 }

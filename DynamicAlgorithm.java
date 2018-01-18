@@ -17,7 +17,7 @@ public class DynamicAlgorithm
 
     public int maximizeValue()
     {
-        storage = new int[boxList.length][(2*8*5*33) + 1];
+        storage = new int[3][(2*8*5*33) + 1];
         for (int i=0; i<storage.length; i++)
             for (int j=0; j<storage[i].length; j++)
                 storage[i][j] = -1;
@@ -41,10 +41,10 @@ public class DynamicAlgorithm
           return 0;
       }
       // check storage
-      if (storage[index][c.getNumber()] != -1)
+      if (storage [(boxList[index]).getNumber()] [c.getNumber()] != -1)
       {
           System.out.println("use storage");
-          return storage[index][c.getNumber()];
+          return storage[(boxList[index]).getNumber()][c.getNumber()];
       }
 
       // otherwise - calculate
@@ -68,7 +68,7 @@ public class DynamicAlgorithm
           int temp2 = boxList[index].getValue() + maximizeValueInternal(index - 1, c2);
           resultValue = Math.max(temp1, temp2);
       }
-      storage[index][c.getNumber()] = resultValue;
+      storage[(boxList[index]).getNumber()][c.getNumber()] = resultValue;
       // System.out.println("result value: " + resultValue);
       return resultValue;
     }
@@ -87,7 +87,7 @@ public class DynamicAlgorithm
     public static void main(String[] args)
     {
       Container container = new Container();
-      GenerateParcelList generator = new GenerateParcelList(3, "random");
+      GenerateParcelList generator = new GenerateParcelList(20, "random");
       Parcel[] parcelsList = generator.getList();
       System.out.println("Parcels list: ");
       generator.print();
