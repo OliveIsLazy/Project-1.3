@@ -29,7 +29,9 @@ public class BasicAlgorithm
       int resultValue = 0;
       // base case
       if (index==-1 || c.relevant(list.get(index))==false)
-          resultValue = 0;
+      {
+          return resultValue;
+      }
       // recursive step
       else
       {
@@ -37,7 +39,7 @@ public class BasicAlgorithm
           for (int i=k; i>=0; i--)
           {
             // swap
-            java.util.Collections.swap(list, i, k);
+            java.util.Collections.swap(list, k, i);
             // check
             // option 1- without this box
             int temp1 = maximizeValue(index - 1, list, c);
@@ -46,11 +48,14 @@ public class BasicAlgorithm
             int[] free = c2.getFreePoint();
             c2.fill(free[0],free[1],free[2], list.get(index));
             int temp2 = list.get(index).getValue() + maximizeValue(index - 1, list, c2);
-            int result1 = Math.max(temp1, temp2);
+            if (resultValue < Math.max(temp1, temp2))
+                resultValue = Math.max(temp1, temp2);
+            // System.out.println("resultValue " + resultValue);
 
             // swap back
-            java.util.Collections.swap(list, k, i);
+            java.util.Collections.swap(list, i, k);
             // check ?
+            /*
             // option 1- without this box
             temp1 = maximizeValue(index - 1, list, c);
             // option 2- with this box
@@ -59,12 +64,16 @@ public class BasicAlgorithm
             c2.fill(free[0],free[1],free[2], list.get(index));
             temp2 = list.get(index).getValue() + maximizeValue(index - 1, list, c2);
             int result2 = Math.max(temp1, temp2);
+            // System.out.println(result2);
 
             // take max
             resultValue = Math.max(result1, result2);
+            System.out.println(resultValue);
+            */
           }
+          System.out.println(resultValue);
+          return resultValue;
       }
-      return resultValue;
     }
 
     /*
@@ -101,7 +110,7 @@ public class BasicAlgorithm
     public static void main(String[] args)
     {
       Container container = new Container();
-      GenerateParcelList generator = new GenerateParcelList(3, "random");
+      GenerateParcelList generator = new GenerateParcelList(6, "random");
       Parcel[] parcelsList = generator.getList();
       System.out.println("Parcels list: ");
       generator.print();
