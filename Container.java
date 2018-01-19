@@ -109,23 +109,41 @@ public class Container
 	}
 
 	// checking if a box can be fit for a given point
-	public boolean fit(int i, int j, int k, Parcel p){
+	public boolean fit(int i, int j, int k, Parcel p)
+	{
 		int[][] coords = p.getCoords();
-		for(int m = 0; m<coords.length; m++){
-			if ( i+coords[m][0]<cMatrix.length && j+coords[m][1]<cMatrix[0].length && k+coords[m][2]<cMatrix[0][0].length )
-					if ( cMatrix[ i+coords[m][0]][j+coords[m][1]][k+coords[m][2]] == true)
-							return false;
-	}
-	return true;
+		for(int m = 0; m < coords.length; m++)
+			if (i + coords[m][0] < cMatrix.length && j + coords[m][1] < cMatrix[0].length && k + coords[m][2] < cMatrix[0][0].length) // Is it in bounds?
+			{
+				if (cMatrix[i + coords[m][0]][j + coords[m][1]][k + coords[m][2]] == true)	return false;
+			}
+		 	else return false;
+		return true;
 	}
 
+	
+	/*
+	// checking if a box can be fit for a given point
+	public boolean fit(int i, int j, int k, Parcel p)
+	{
+		int[][] coords = p.getCoords();
+		for(int m = 0; m<coords.length; m++)
+			if (i+coords[m][0]<cMatrix.length && j+coords[m][1]<cMatrix[0].length && k+coords[m][2]<cMatrix[0][0].length) // Is it in bounds?
+				if (cMatrix[i + coords[m][0]][j + coords[m][1]][k + coords[m][2]] == true)
+							return false;
+		return true;
+	}*/
+	
+	
+	
 	// fitting a box in a given point, and updates the number
-	public void fill(int i, int j, int k, Parcel p){
+	public void fill(int i, int j, int k, Parcel p)
+	{
 			int[][] coords = p.getCoords();
-			for(int m = 0; m<coords.length; m++){
-					if ( i+coords[m][0]<cMatrix.length && j+coords[m][1]<cMatrix[0].length && k+coords[m][2]<cMatrix[0][0].length )
-							cMatrix[ i+coords[m][0]][j+coords[m][1]][k+coords[m][2] ] = true;
-			}
+			for(int m = 0; m<coords.length; m++)
+				if (i + coords[m][0] < cMatrix.length && j + coords[m][1] < cMatrix[0].length && k + coords[m][2] < cMatrix[0][0].length)
+					cMatrix[i + coords[m][0]][j + coords[m][1]][k + coords[m][2]] = true;
+				
 			updateNumber();
 			updateVolume();
 	}

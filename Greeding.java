@@ -21,45 +21,52 @@ public class Greeding // Maximising value density based on short term gains.
 		Parcel doesAfit = new Parcel("A");
 		Parcel doesCfit = new Parcel("C");
 		Parcel doesBfit = new Parcel("B");
+		
 	// Scan container through k, j and then i for an empty placement space.
+	
 	for (int k = 0; k < crate[0][0].length; k++)
 		for (int j = 0; j < crate[0].length; j++)
-		for (int i = 0; i < crate.length; i++)
-			
-				
+			for (int i = 0; i < crate.length; i++)
+				if (crate[i][j][k] == false)
 				{
-				/*	if (crate[i][j][k] == false && box.relevant(doesAfit) == true)
+	// Parcel A.
+					if (box.fit(i, j, k, doesAfit) == true) // When this parcel can fit in at this spot.
 					{
 						Parcel aNewA = new Parcel("A");
 						placementOrder.add(aNewA);
 						box.fill(i, j, k, placementOrder.get(counter));
+						System.out.println("Parcel #" + (counter + 1) + " placed!");
 						counter++;
 						countOfA++;
 						if (usedA == false)
 							usedA = true;
 					}
 					
-					if (crate[i][j][k] == false && box.relevant(doesCfit) == true)
+	// Parcel C.
+					else if (box.fit(i, j, k, doesCfit) == true)
 					{
 						Parcel aNewC = new Parcel("C");
 						placementOrder.add(aNewC);
 						box.fill(i, j, k, placementOrder.get(counter));
+						System.out.println("Parcel #" + (counter + 1) + " placed!");
 						counter++;
 						countOfC++;
 						if (usedC == false)
 							usedC = true;
-					}*/
+					}
 					
-					if (crate[i][j][k] == false && box.relevant(doesBfit) == true)
+	// Parcel B.
+					else if (box.fit(i, j, k, doesBfit) == true)
 					{
 						Parcel aNewB = new Parcel("B");
 						placementOrder.add(aNewB);
 						box.fill(i, j, k, placementOrder.get(counter));
+						System.out.println("Parcel #" + (counter + 1) + " placed!");
 						counter++;
 						countOfB++;
 						if (usedB == false)
 							usedB = true;
-					}	
+					}
 				}
 		
 	// Report!	
@@ -91,7 +98,7 @@ public class Greeding // Maximising value density based on short term gains.
 		for (int i = 0; i < placementOrder.size() - 1; i++)
 			System.out.print( "(" + (placementOrder.indexOf(placementOrder.get(i)) + 1) + ")" + placementOrder.get(i).getName() + ", ");
 		System.out.println( "("+ placementOrder.size() + ")" + placementOrder.get(placementOrder.size() - 1).getName() +".");
-		*/
+		
 		
 		for (int i = 0; i < crate.length; i++)
 		{
@@ -103,6 +110,6 @@ public class Greeding // Maximising value density based on short term gains.
 						System.out.println("Point (" + i + "," + j + "," + k + ") is false.");
 				}	
 			}			
-		}
+		}*/
 	}
 }
