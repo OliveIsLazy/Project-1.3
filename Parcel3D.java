@@ -6,7 +6,7 @@ import java.awt.geom.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JFrame;
-import javax.swing.JComponent;
+import javax.swing.*;
 import java.awt.Polygon;
 import static java.lang.Math.*;
 
@@ -30,12 +30,14 @@ public class Parcel3D extends JComponent
   // initialisation of the color of the parcel that we're going to use
   private Color color;
   //to know wich on we are using
-  private int wichOne
+  private int wichOne;
   // to define the place of the origin (0,0,0)
-  private double xLeft = 300;
-  private double yTop = 300;
+  private double xLeft;
+  private double yTop;
   //to facilte fisibility
   private int scale = 50;
+
+  double[] projPoint;
 
   //constructor
   public Parcel3D(int wichOne)
@@ -68,7 +70,7 @@ public class Parcel3D extends JComponent
     for(int i = 0; i<coords.length; i++)
       coords[i][1] += addy;
   }
-  public void translationsX(int addz)
+  public void translationsZ(int addz)
   {
     for(int i = 0; i<coords.length; i++)
       coords[i][1] += addz;
@@ -94,9 +96,17 @@ public class Parcel3D extends JComponent
     coords[n][2] = value;
   }
 
-  public void setRotatable(boolean a){
-  	  rotatable = a;
+  public void setProjPoint(double[] projp)
+  {
+    projPoint = projp;
   }
+
+  public void setXY2D(int x, int y)
+  {
+    xLeft = x;
+    yTop = y;
+  }
+
 /*
   public void setCoords(int x, int y, int value)
   {
@@ -120,8 +130,6 @@ public class Parcel3D extends JComponent
 
   public void draw(Graphics2D g2)
   {
-    //define the point of view
-    double[] projPoint = {20.0, 500.0, 200.0};
 
     double[][] plan = proj2D(coords, projPoint);
 
@@ -134,28 +142,9 @@ public class Parcel3D extends JComponent
       Line2D.Double line = new Line2D.Double(point1, point2);
       g2.draw(line);
     }
-    //orthogonal basis need to be removed
-    double[][] basis = {{300,0,0},{0,300,0},{0,0,300}, {0,0,0}};
-    double[][] basisRep = proj2D(basis, projPoint);
-    Point2D.Double point0 = new Point2D.Double((xLeft + basisRep[0][3]), (yTop + basisRep[1][3]));
-    Ellipse2D.Double origin = new Ellipse2D.Double((xLeft + basisRep[0][3]-5), (yTop + basisRep[1][3]-5), 10, 10);
-    g2.draw(origin);
-
-    System.out.println(""+ (xLeft + basisRep[0][3]) + "  " + (yTop + basisRep[1][3]));
-    for (int i = 0; i < basis.length-1; i++)
-    {
-      Point2D.Double point2 = new Point2D.Double((xLeft + basisRep[0][i]), (yTop + basisRep[1][i]));
-      System.out.println(""+ (xLeft + basisRep[0][i]) + "  " + (yTop + basisRep[1][i]));
-      Line2D.Double line = new Line2D.Double(point0, point2);
-      Ellipse2D.Double window = new Ellipse2D.Double((xLeft + basisRep[0][i]-2), (yTop + basisRep[1][i]-2), 4, 4);
-  //    g2.setColor(Color.black);
-      g2.setColor(colors[i]);
-      g2.draw(line);
-      g2.draw(window);
-    }
   }
 
-  public double[][] proj2D(double[][] m3D, double[] projCenter)
+  public static double[][] proj2D(double[][] m3D, double[] projCenter)
   {
     double[][] coordsForProj = new double[m3D[0].length + 1][m3D.length];
     for(int i = 0; i < m3D.length; i++)
@@ -281,14 +270,6 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
     System.out.println("");
   }
 
-  public void paintComponent(Graphics g)
-  {
-    Graphics2D g2 = (Graphics2D)g;
-
-    Parcel3D parcelTest = new Parcel3D(wichOne);
-
-    parcelTest.draw(g2);
-  }
 /*
   public void rotateZ(String sens, char axe)
   {
