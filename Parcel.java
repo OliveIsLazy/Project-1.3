@@ -1,8 +1,9 @@
 public class Parcel{
 
-	private double volume;
+	private int volume;
 	private double density;
 	private String name = "";
+	private int number;
 
 	private int currentValue;
 	private int[][] currentCoords;
@@ -10,6 +11,10 @@ public class Parcel{
 	private int valA = 3;
 	private int valB = 4;
 	private int valC = 5;
+
+	private int volA = 2*2*4;
+	private int volB = 2*3*4;
+	private int volC = 3*3*3;
 
 	private final int[][] A = {{0,0,0},{1,0,0},{0,1,0},{1,1,0},
 				{0,0,1},{1,0,1},{0,1,1},{1,1,1},
@@ -30,14 +35,20 @@ public class Parcel{
 	if(type.equals("A")){
 		currentValue = valA;
 		currentCoords = A;
+		number = 0;
+		volume = volA;
 	}
 	else if(type.equals("B")){
 		currentValue = valB;
 		currentCoords = B;
+		number = 1;
+		volume = volB;
 	}
 	else if(type.equals("C")){
 		currentValue = valC;
 		currentCoords = C;
+		number = 2;
+		volume = volC;
 	}
 	name = type;
 	}
@@ -50,8 +61,20 @@ public class Parcel{
         return currentValue;
     }
 
-    public String getName() {
+  public String getName() {
         return name;
-    }
+  }
+
+	public int getNumber() {
+        return number;
+  }
+
+	public int getVolume() {
+        return volume;
+  }
+
+	public double getRation() {
+        return currentValue/volume;
+  }
 
 }

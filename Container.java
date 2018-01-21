@@ -1,4 +1,5 @@
-import java.util.Vector;
+import java.util.ArrayList;
+//import java.util.Vector;
 //import java.io.*;
 
 public class Container
@@ -8,28 +9,22 @@ public class Container
 	private int[] freePoint = new int[3];
 	private int containerNumber;
 	private int volume;
-	private static int counter = 1;
-	private static Vector v = new Vector();
+	private static int counter = 0;
+	private static ArrayList<Container> v = new ArrayList<Container>();
 
 	// Constructors
 	public Container()
 	{
 			cMatrix = new boolean[8][5][33];
 			volume = 0;
-			updateNumber();
+			containerNumber = 0;
 	}
 
 	public Container(int h, int w, int l)
 	{
 			cMatrix = new boolean[h][w][l];
 			volume = 0;
-			updateNumber();
-	}
-
-	public Container(int noNeedNumber)
-	{
-			cMatrix = new boolean[8][5][33];
-			volume = 0;
+			containerNumber = 0;
 	}
 
 	// instance methods
@@ -40,28 +35,33 @@ public class Container
 		// checking if there is a match. if it finds a match, it updates the container number.
 		for (int i=0; i<v.size(); i++)
 		{
-				Container x = (Container) v.elementAt(i);
-				if ( this.sameMatrix(x) )
+				Container x = v.get(i);
+				if ( sameMatrix(x) )
 				{
-						this.containerNumber = x.getNumber();
+						containerNumber = x.getNumber();
 						//System.out.println("sameMatrix");
 						return true;
 				}
 		}
 		// if not - create a new number and keep this object
-		this.containerNumber = counter;
 		counter++;
+		containerNumber = counter;
 		v.add(this);
-		// print the nembers of the new vector
-		for (int i=0; i<v.size(); i++)
-		{
-				Container x = (Container) v.elementAt(i);
-				// System.out.println("vector: " + x.getNumber());
-		}
 		return false;
 	}
 
-	// checking if the other objact is a container with the same cMatrix as this.
+	// print the nummbers of the cointainers in the vector
+	public void printVector()
+	{
+		System.out.print("vector of cointainers: ");
+		for (int i=0; i<v.size(); i++)
+		{
+			Container x = v.get(i);
+			System.out.print(x.getNumber() + " ");
+		}
+	}
+
+	// checking if the other object is a container with the same cMatrix as this.
 	public boolean sameMatrix(Object otherObject)
 	{
 		if (otherObject == null) return false;
@@ -83,7 +83,7 @@ public class Container
 	// creating a clone of this
 	public Object clone()
 	{
-		Container cloned = new Container(0);
+		Container cloned = new Container();
 		cloned.cMatrix = cMatrix;
 		cloned.freePoint = freePoint;
 		cloned.containerNumber = containerNumber;
@@ -132,13 +132,13 @@ public class Container
 
 	public void updateVolume()
 	{
-		int counter = 0;
+		int sum = 0;
 		for(int i = 0; i<cMatrix.length; i++)
 			for(int j = 0; j<cMatrix[0].length; j++)
 				for(int k = 0; k<cMatrix[0][0].length; k++)
 					if (cMatrix[i][j][k])
-							counter++;
-		volume = counter;
+							sum++;
+		volume = sum;
 	}
 
 	// setters and getters
@@ -152,6 +152,6 @@ public class Container
 	{ return containerNumber; }
 
 	public int getVolume()
-	{ return volume/2; }
+	{ return volume; }
 
 }
