@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class Test
 {
   private ArrayList<Parcel3D> parcels;
+  private Drawer drawer;
+  private JPanel panelDraw;
 
   public static void main(String[] args)
   {
@@ -65,6 +67,8 @@ public class Test
     panelValues.add(cValueText);
     panelValues.add(cValue);
 
+    panelDraw = new JPanel(new BorderLayout());
+
     JPanel results = new JPanel();
     results.setLayout(new GridLayout(2, 0));
 
@@ -90,7 +94,7 @@ public class Test
           {
             System.out.println("Back-tracking");
             Container container = new Container();
-            GenerateParcelList generator = new GenerateParcelList(4, "random");
+            GenerateParcelList generator = new GenerateParcelList(4, "C");
             Parcel3D[] ParcelsList = generator.getList();
             System.out.println("Parcels list: ");
             generator.print();
@@ -99,6 +103,8 @@ public class Test
             double x = myAlgorithm.maximize("value");
             System.out.println("Result value: " + x);
             parcels = myAlgorithm.getContainer().getFilledParcels();
+            drawer = new Drawer(parcels, projPoint);
+            panelDraw.add(drawer);
 
           }
           else if ((String) whichAlgo.getSelectedItem() == "Dynamic")
@@ -119,15 +125,6 @@ public class Test
     panelInterface.add(panelValues);
     panelInterface.add(results);
     panelInterface.add(calcButton);
-
-
-    JPanel panelDraw = new JPanel(new BorderLayout());
-    Parcel3D cargo = new Parcel3D("Cargo");
-    Parcel3D parcelTest = new Parcel3D("A");
-    parcelTest.translationsX(6);
-    Drawer drawer = new Drawer(parcels, projPoint);
-    panelDraw.add(drawer);
-
 
     JPanel finalPanel = new JPanel();
     finalPanel.setLayout(new BorderLayout());
