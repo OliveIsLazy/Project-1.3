@@ -3,15 +3,19 @@ import java.awt.geom.*;
 import java.awt.*;
 import java.lang.Math;
 import static java.lang.Math.*;
+import java.util.ArrayList;
+
 public class Drawer  extends JComponent
 {
   double[] projPoint = new double[3];
   Parcel3D[] parcels;
   int xLeft = 300;
   int yTop = 300;
-  public Drawer(Parcel3D[] p, double[] projp)
+  public Drawer(ArrayList<Parcel3D> p, double[] projp)
   {
-    parcels = p;
+    parcels = new Parcel3D[p.size()];
+    for(int i = 0; i < p.size(); i++)
+      parcels[i] = p.get(i);
     projPoint = projp;
   }
   public void paintComponent(Graphics g)
@@ -28,7 +32,7 @@ public class Drawer  extends JComponent
       parcels[i].draw(g2);
     }
 
-    
+
     //orthogonal basis need to be removed
     double[][] basis = {{300,0,0},{0,300,0},{0,0,300}, {0,0,0}};
     double[][] basisRep = proj2D(basis, projPoint);
@@ -127,18 +131,15 @@ public class Drawer  extends JComponent
     double cosX = Math.cos(eX);
     double cosY = Math.cos(eY);
     double cosZ = Math.cos(eZ);
-
     double sinX = Math.sin(eX);
     double sinY = Math.sin(eY);
     double sinZ = Math.sin(eZ);
-
     //---
     //The position of point A with respect to a coordinate system defined by the camera, with origin in C and rotated by Theta with respect to the initial coordinate system.
     double dX = ((cosY*sinZ*eY) + (cosY*cosZ*eX)) - (sinY * eZ);
 double dY = ((sinX*cosY*eZ) + (sinX*sinY*sinZ*eY) + (sinX*sinY*cosZ*eX)) + ((cosX*cosZ*eY) - (cosX*sinZ*eX));
 double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sinX*cosZ*eY) - (sinX*sinZ*eX));
     //---
-
       m2D[0][k] = (int)(((eZ / dZ) * dX) - eX);
       m2D[1][k] = (int)(((eZ / dZ) * dY) - eY);
 */
