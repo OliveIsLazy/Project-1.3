@@ -36,8 +36,6 @@ public class BasicAlgorithm
       }
 
       // recursive step
-      if (c.relevant(list.get(index))==false)
-          resultValue = maximizeValue(index - 1, list, c);
       else
       {
           int k = index;
@@ -49,18 +47,25 @@ public class BasicAlgorithm
             // option 1- without this box
             double temp1 = maximizeValue(index - 1, list, c);
             // option 2- with this box
-            Container c2 = (Container) c.clone();
-            int[] free = c2.getFreePoint();
-            c2.fill(free[0],free[1],free[2], list.get(index));
-            double temp2 = list.get(index).getValue() + maximizeValue(index - 1, list, c2);
+            double temp2 = 0;
+            Container c2 = new Container();
+            if (c.relevant(list.get(index))==true)
+            {
+            	c2 = (Container) c.clone();
+            	//int[] free = c2.getFreePoint();
+            	//c2.fill(free[0],free[1],free[2], list.get(index));
+            	temp2 = list.get(index).getValue() + maximizeValue(index - 1, list, c2);
+            }
+            // take the better option
             if (resultValue < Math.max(temp1, temp2))
             {
-                resultValue = Math.max(temp1, temp2);
-                if (temp1>=temp2)
-                    best = (Container) c.clone();
-                else
-                    best = (Container) c2.clone();
-            }
+            		resultValue = Math.max(temp1, temp2);
+            		if (temp1>=temp2)
+            			best = (Container) c.clone();
+            		else
+            			best = (Container) c2.clone();
+           	}
+
             //System.out.println("resultValue " + resultValue);
             // swap back
             java.util.Collections.swap(list, i, k);
@@ -126,6 +131,7 @@ public class BasicAlgorithm
     public Container getContainer()
     { return best; }
 
+
     /*
     public static void main(String[] args)
     {
@@ -143,5 +149,6 @@ public class BasicAlgorithm
       System.out.println("Result volume: " + y);
     }
     */
+
 
 } // class
