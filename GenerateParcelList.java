@@ -2,11 +2,11 @@ import java.lang.Math;
 
 public class GenerateParcelList
 {
-      private Parcel[] parcelsList;
+      private Parcel3D[] parcelsList;
 
       public GenerateParcelList(int n, String s)
       {
-        parcelsList = new Parcel[n];
+        parcelsList = new Parcel3D[n];
         if (s.toLowerCase().equals("random"))
             random();
         if (s.toLowerCase().equals("a"))
@@ -17,7 +17,7 @@ public class GenerateParcelList
             uniform(2);
       }
 
-      public Parcel[] getList()
+      public Parcel3D[] getList()
       { return parcelsList; }
 
       public void print()
