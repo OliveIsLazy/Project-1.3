@@ -40,24 +40,19 @@ public class Parcel3D extends JComponent
   double[] projPoint;
 
   //constructor
-  public Parcel3D(int wichOne)
+  public Parcel3D(String wichOne)
   {
-    this.wichOne = wichOne;
+    if (wichOne.equals("A")) this.wichOne = 0;
+    else if (wichOne.equals("B")) this.wichOne = 1;
+    else if (wichOne.equals("C")) this.wichOne = 2;
+    else if (wichOne.equals("cargo")) this.wichOne = 3;
+    else System.out.println("wrong type of Parcel");
 
     color = colors[this.wichOne];
     for (int i = 0; i < coordOfAll[0].length ; i++)
         for (int j = 0; j < 3; ++j)
             coords[i][j] = coordOfAll[this.wichOne][i][j]*scale;
   }
-   public Parcel3D(String wichOne)
-  {
-    if (wichOne.equals("A")) Parcel3D(0);
-    else if (wichOne.equals("B")) Parcel3D(1);
-    else if (wichOne.equals("C")) Parcel3D(2);
-    else if (wichOne.equals("cargo")) Parcel3D(3);
-    else System.out.println("wrong type of Parcel");
-  }
-  
 
 //
   public void setPlace(int newx, int newy, int newz)
