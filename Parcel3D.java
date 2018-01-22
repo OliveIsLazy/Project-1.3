@@ -35,9 +35,14 @@ public class Parcel3D extends JComponent
   private double xLeft;
   private double yTop;
   //to facilte fisibility
-  private int scale = 50;
+  private int scale = 4;
 
-  double[] projPoint;
+  private double[] projPoint;
+
+  private double[] values = {3, 4, 5, 0};
+  private double value;
+  private String[] names = {"A", "B", "C", "Cargo"};
+  private String name;
 
   //constructor
   public Parcel3D(String wichOne)
@@ -45,23 +50,36 @@ public class Parcel3D extends JComponent
     if (wichOne.equals("A")) this.wichOne = 0;
     else if (wichOne.equals("B")) this.wichOne = 1;
     else if (wichOne.equals("C")) this.wichOne = 2;
-    else if (wichOne.equals("cargo")) this.wichOne = 3;
+    else if (wichOne.equals("Cargo")) this.wichOne = 3;
     else System.out.println("wrong type of Parcel");
 
     color = colors[this.wichOne];
     for (int i = 0; i < coordOfAll[0].length ; i++)
         for (int j = 0; j < 3; ++j)
             coords[i][j] = coordOfAll[this.wichOne][i][j]*scale;
+    value = values[this.wichOne];
+    name = names[this.wichOne];
+  }
+
+  public Parcel3D(int wichOne)
+  {
+    this.wichOne = wichOne;
+    color = colors[this.wichOne];
+    for (int i = 0; i < coordOfAll[0].length ; i++)
+        for (int j = 0; j < 3; ++j)
+            coords[i][j] = coordOfAll[this.wichOne][i][j]*scale;
+    value = values[this.wichOne];
+    name = names[this.wichOne];
   }
 
 //
-  public void setPlace(int newx, int newy, int newz)
+  public void setPlace(double newx, double newy, double newz)
   {
     for(int i = 0; i<coordOfAll[0].length; i++)
     {
-  		coords[i][0] = coordOfAll[wichOne][i][0]+ newx;
-  		coords[i][1] = coordOfAll[wichOne][i][1]+ newy;
-      coords[i][2] = coordOfAll[wichOne][i][2]+ newz;
+  		coords[i][0] = (coordOfAll[wichOne][i][0])*scale + newx;
+  		coords[i][1] = (coordOfAll[wichOne][i][1])*scale + newy;
+      coords[i][2] = (coordOfAll[wichOne][i][2])*scale + newz;
   	}
   }
 
@@ -131,6 +149,24 @@ public class Parcel3D extends JComponent
   public int getWichOne()
   {
     return wichOne;
+  }
+
+  public double getValue() {
+        return value;
+    }
+
+  public String getName() {
+          return name;
+  }
+
+  public int getScale() {
+            return scale;
+  }
+
+  public double[] getDim()
+  {
+      double[] x = {abs(coordOfAll[wichOne][0][0]*2*scale), abs(coordOfAll[wichOne][0][1]*2*scale), abs(coordOfAll[wichOne][0][2]*2*scale)};
+      return x;
   }
 
   public void draw(Graphics2D g2)
@@ -245,18 +281,15 @@ public class Parcel3D extends JComponent
     double cosX = Math.cos(eX);
     double cosY = Math.cos(eY);
     double cosZ = Math.cos(eZ);
-
     double sinX = Math.sin(eX);
     double sinY = Math.sin(eY);
     double sinZ = Math.sin(eZ);
-
     //---
     //The position of point A with respect to a coordinate system defined by the camera, with origin in C and rotated by Theta with respect to the initial coordinate system.
     double dX = ((cosY*sinZ*eY) + (cosY*cosZ*eX)) - (sinY * eZ);
 double dY = ((sinX*cosY*eZ) + (sinX*sinY*sinZ*eY) + (sinX*sinY*cosZ*eX)) + ((cosX*cosZ*eY) - (cosX*sinZ*eX));
 double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sinX*cosZ*eY) - (sinX*sinZ*eX));
     //---
-
       m2D[0][k] = (int)(((eZ / dZ) * dX) - eX);
       m2D[1][k] = (int)(((eZ / dZ) * dY) - eY);
 */
@@ -306,7 +339,6 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
     int[] oldCoordsY = new int[5];
     for (int i = 0; i < 5; i++)
       oldCoordsY[i] = this.getCoords()[i][1] - place[1];
-
   if (sens == "right")
     {
       for (int i = 0; i < 5 ; i++)
