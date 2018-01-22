@@ -7,13 +7,15 @@ import javax.swing.JComponent;
 import javax.swing.*;
 import java.awt.Rectangle;
 import java.util.Scanner;
+import java.awt.event.*;
+import java.text.NumberFormat;
 
 
 public class Test
 {
   public static void main(String[] args)
   {
-    double[] projPoint = {300.0, 300.0, 300.0};
+    double[] projPoint = {200.0, 300.0, 400.0};
 
     JFrame frame = new JFrame();
     final int FRAME_WIDTH = 700;
@@ -22,21 +24,98 @@ public class Test
     frame.setTitle("parcel ?");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    JPanel panel = new JPanel(new BorderLayout());
-    JPanel panel2 = new JPanel(new BorderLayout());
 
-    Parcel3D cargo = new Parcel3D(3);
-    Parcel3D parcelTest = new Parcel3D(2);
-
-    Parcel3D[] parcels = {cargo, parcelTest};
+    JPanel panelDraw = new JPanel(new BorderLayout());
+    Parcel3D cargo = new Parcel3D("cargo");
+    Parcel3D parcelTest = new Parcel3D("A");
+    parcelTest.translationsX(6);
+    Parcel3D[] parcels = {cargo, parcelTest, new Parcel3D("A")};
     Drawer drawer = new Drawer(parcels, projPoint);
+    panelDraw.add(drawer);
 
-    panel.add(drawer);
+    JPanel panelInterface = new JPanel(new GridLayout(4, 0));
+
+    JComboBox whichAlgo = new JComboBox();
+    whichAlgo.addItem("Greedy");
+    whichAlgo.addItem("Back-tracking");
+    whichAlgo.addItem("Dynamic");
+
+    JPanel panelValues  = new JPanel(new GridLayout(6,0));
+
+    JTextField aValueText = new JTextField("Value of parcel A");
+    aValueText.setEditable(false);
+    JTextField bValueText = new JTextField("Value of parcel B");
+    bValueText.setEditable(false);
+    JTextField cValueText = new JTextField("Value of parcel C");
+    cValueText.setEditable(false);
+
+    NumberFormat valueFormat;
+    valueFormat = NumberFormat.getNumberInstance();
+    JFormattedTextField aValue = new JFormattedTextField(valueFormat);
+    aValue.setEditable(true);
+    JFormattedTextField bValue = new JFormattedTextField(valueFormat);
+    bValue.setEditable(true);
+    JFormattedTextField cValue = new JFormattedTextField(valueFormat);
+    cValue.setEditable(true);
+
+    panelValues.add(aValueText);
+    panelValues.add(aValue);
+    panelValues.add(bValueText);
+    panelValues.add(bValue);
+    panelValues.add(cValueText);
+    panelValues.add(cValue);
+
+    JPanel results = new JPanel();
+    results.setLayout(new GridLayout(2, 0));
+
+    JTextField totalValueText = new JTextField("Total value :" + "\n" + 0);
+    totalValueText.setEditable(false);
+    JTextField fillingRateText = new JTextField("Filling rate :" + 0 + "%");
+    fillingRateText.setEditable(false);
+
+    results.add(totalValueText);
+    results.add(fillingRateText);
+
+    class ClickListener implements ActionListener
+    {
+      public void actionPerformed(ActionEvent event)
+      {
+          if ((String) whichAlgo.getSelectedItem() == "Greedy")
+          {
+            System.out.println("Greedy");
+            totalValueText.setText("Total value :" + "\n" + 0.1);
+            fillingRateText.setText("Filling rate :" + 0.1 + "%");
+          }
+          else if ((String) whichAlgo.getSelectedItem() == "Back-tracking")
+          {
+            System.out.println("Back-tracking");
+            totalValueText.setText("Total value :" + "\n" + 0.2);
+            fillingRateText.setText("Filling rate :" + 0.2 + "%");
+          }
+          else if ((String) whichAlgo.getSelectedItem() == "Dynamic")
+          {
+            System.out.println("Dynamic");
+            totalValueText.setText("Total value :" + "\n" + 0.3);
+            fillingRateText.setText("Filling rate :" + 0.3 + "%");
+          }
+      }
+    }
+
+    ActionListener calculate = new ClickListener();
+
+    JButton calcButton = new JButton("Calculate");
+    calcButton.addActionListener(calculate);
+
+    panelInterface.add(whichAlgo);
+    panelInterface.add(panelValues);
+    panelInterface.add(results);
+    panelInterface.add(calcButton);
 
     JPanel finalPanel = new JPanel();
-    finalPanel.setLayout(new GridLayout(1, 3));
-    finalPanel.add(panel);
-    //finalPanel.add(panel2);
+    finalPanel.setLayout(new BorderLayout());
+    finalPanel.add(panelDraw, BorderLayout.CENTER);
+    finalPanel.add(panelInterface, BorderLayout.LINE_END);
+
     frame.add(finalPanel);
 
     frame.setVisible(true);
