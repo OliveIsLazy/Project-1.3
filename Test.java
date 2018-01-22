@@ -18,14 +18,9 @@ public class Test
   private Drawer drawer;
   private JPanel panelDraw;
 
-  public static void main(String[] args)
-  {
-    Test t = new Test();
-    t.start();
-  }
   public void start()
   {
-    double[] projPoint = {200.0, 300.0, 400.0};
+    double[] projPoint = {20.0, 30.0, 40.0};
 
     JFrame frame = new JFrame();
     final int FRAME_WIDTH = 700;
@@ -80,6 +75,12 @@ public class Test
     results.add(totalValueText);
     results.add(fillingRateText);
 
+    parcels = new ArrayList<Parcel3D>();
+
+    parcels.add(new Parcel3D("A"));
+    parcels.add(new Parcel3D("C"));
+    parcels.add(new Parcel3D("Cargo"));
+
     class ClickListener implements ActionListener
     {
       public void actionPerformed(ActionEvent event)
@@ -93,7 +94,7 @@ public class Test
           else if ((String) whichAlgo.getSelectedItem() == "Back-tracking")
           {
             System.out.println("Back-tracking");
-            Container container = new Container();
+          /*  Container container = new Container();
             GenerateParcelList generator = new GenerateParcelList(4, "C");
             Parcel3D[] ParcelsList = generator.getList();
             System.out.println("Parcels list: ");
@@ -103,9 +104,7 @@ public class Test
             double x = myAlgorithm.maximize("value");
             System.out.println("Result value: " + x);
             parcels = myAlgorithm.getContainer().getFilledParcels();
-            drawer = new Drawer(parcels, projPoint);
-            panelDraw.add(drawer);
-
+            */
           }
           else if ((String) whichAlgo.getSelectedItem() == "Dynamic")
           {
@@ -126,6 +125,12 @@ public class Test
     panelInterface.add(results);
     panelInterface.add(calcButton);
 
+    if (parcels != null)
+    {
+      drawer = new Drawer(parcels, projPoint);
+      panelDraw.add(drawer);
+    }
+
     JPanel finalPanel = new JPanel();
     finalPanel.setLayout(new BorderLayout());
     finalPanel.add(panelDraw, BorderLayout.CENTER);
@@ -134,6 +139,11 @@ public class Test
     frame.add(finalPanel);
 
     frame.setVisible(true);
+  }
+  public static void main(String[] args)
+  {
+    Test t = new Test();
+    t.start();
   }
 }
 /*
