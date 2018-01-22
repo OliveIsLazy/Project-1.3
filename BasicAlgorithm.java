@@ -6,7 +6,7 @@ public class BasicAlgorithm
     private Container container;
     private Parcel3D[] boxList;
     private ArrayList<Parcel3D> boxList2;
-    private ArrayList<Parcel3D> best;
+    private Container best;
 
     public BasicAlgorithm(Container c, Parcel3D[] pList)
     {
@@ -57,9 +57,9 @@ public class BasicAlgorithm
             {
                 resultValue = Math.max(temp1, temp2);
                 if (temp1>=temp2)
-                    container = (Container) c.clone();
+                    best = (Container) c.clone();
                 else
-                    container = (Container) c2.clone();
+                    best = (Container) c2.clone();
             }
             //System.out.println("resultValue " + resultValue);
             // swap back
@@ -79,7 +79,6 @@ public class BasicAlgorithm
           resultVolume = c.getVolume() / (4*4*4);
       if (c.relevant(list.get(index))==false)
           resultValue = maximizeValue(index - 1, list, c);
-
       // recursive step
       else
       {
@@ -88,7 +87,6 @@ public class BasicAlgorithm
         {
           // swap
           java.util.Collections.swap(list, k, i);
-
           // check
           // option 1- without this box
           int temp1 = maximizeVolume(index - 1, list, c);
@@ -101,9 +99,7 @@ public class BasicAlgorithm
           if (resultVolume < Math.max(temp1, temp2))
           {
             resultVolume = Math.max(temp1, temp2);
-
           }
-
           // swap back
           java.util.Collections.swap(list, i, k);
         }
@@ -128,7 +124,7 @@ public class BasicAlgorithm
     }
 
     public Container getContainer()
-    { return container; }
+    { return best; }
 
     /*
     public static void main(String[] args)

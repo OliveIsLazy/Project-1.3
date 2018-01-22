@@ -13,7 +13,7 @@ import static java.lang.Math.*;
 public class Parcel3D extends JComponent
 {
   // the 3D array with the coordonnes of the points of every shape of Parcel that we're going to use.
-  private double[][][] coordOfAll =
+  private static double[][][] coordOfAll =
     {
       //0 A
       { {-1, 0.5, 0.5}, {-1, -0.5, 0.5}, {-1, -0.5, -0.5}, {-1, 0.5, -0.5}, {1, 0.5, 0.5}, {1, -0.5, 0.5}, {1, -0.5,- 0.5}, {1, 0.5, -0.5}, {0,0,0}},
@@ -26,7 +26,7 @@ public class Parcel3D extends JComponent
   // the coords of the Parcel3D that we use are initialised, without any values yet
   private double[][] coords = new double[9][3];
   // the colors of each parcel (for more visibility)
-  private Color[] colors = {Color.blue, Color.green, Color.red, Color.BLACK};
+  private static Color[] colors = {Color.blue, Color.green, Color.red, Color.BLACK};
   // initialisation of the color of the parcel that we're going to use
   private Color color;
   //to know wich on we are using
@@ -39,9 +39,9 @@ public class Parcel3D extends JComponent
 
   private double[] projPoint;
 
-  private double[] values = {3, 4, 5, 0};
+  private static double[] values = {3, 4, 5, 0};
   private double value;
-  private String[] names = {"A", "B", "C", "Cargo"};
+  private static String[] names = {"A", "B", "C", "Cargo"};
   private String name;
 
   //constructor
@@ -325,6 +325,20 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
       System.out.println("");
     }
     System.out.println("");
+  }
+
+  // creating a clone of this
+  public Object clone()
+  {
+    Parcel3D cloned = new Parcel3D(wichOne);
+    cloned.coords = coords;
+    cloned.color = color;
+    cloned.wichOne = wichOne;
+    cloned.xLeft = xLeft;
+    cloned.yTop = yTop;
+    cloned.scale = scale;
+    cloned.projPoint = projPoint;
+    return cloned;
   }
 
 /*

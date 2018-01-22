@@ -64,11 +64,14 @@ public class Container extends Parcel3D
 	// checking if a box can be fit for a given point
 	public boolean fit(int i, int j, int k, Parcel3D p){
 		double[][] coords = p.getCoords();
-		for(int m = 0; m<coords.length; m++){
-			if ( i+ (int) (coords[m][0])<cMatrix.length && j+ (int) (coords[m][1])<cMatrix[0].length && k+ (int) (coords[m][2])<cMatrix[0][0].length )
-					if ( cMatrix[i+(int)(coords[m][0])] [j+(int)(coords[m][1])] [k+(int)(coords[m][2])] == true)
-							return false;
-	}
+		for(int m = 0; m<coords.length; m++)
+			if ( i + (int) (coords[m][2]) < cMatrix.length && j + (int) (coords[m][1])<cMatrix[0].length && k + (int) (coords[m][0])<cMatrix[0][0].length )
+			{
+				if ( cMatrix[i+(int)(coords[m][2])] [j+(int)(coords[m][1])] [k+(int)(coords[m][0])] == true)
+					return false;
+			}
+			else
+				return false;
 	return true;
 	}
 
@@ -76,13 +79,14 @@ public class Container extends Parcel3D
 	public void fill(int i, int j, int k, Parcel3D p){
 			double[][] coords = p.getCoords();
 			for(int m = 0; m<coords.length; m++){
-					if ( i+(int) (coords[m][0])<cMatrix.length && j+(int) (coords[m][1])<cMatrix[0].length && k+(int) (coords[m][2])<cMatrix[0][0].length )
-							cMatrix[ i+(int) (coords[m][0])][j+(int) (coords[m][1])][k+(int) (coords[m][2]) ] = true;
+					if ( i+(int) (coords[m][2])<cMatrix.length && j+(int) (coords[m][1])<cMatrix[0].length && k+(int) (coords[m][0])<cMatrix[0][0].length )
+							cMatrix[ i+(int) (coords[m][2])][j+(int) (coords[m][1])][k+(int) (coords[m][0]) ] = true;
 			}
 			// updateNumber();
 			updateVolume();
-			p.setPlace(i - Math.abs(this.getDim()[0]/2), j - Math.abs(this.getDim()[1]/2), k - Math.abs(this.getDim()[2]/2));
-			filledParcels.add(p);
+			Parcel3D newP = (Parcel3D) p.clone();
+			newP.setPlace(i - Math.abs(this.getDim()[0]/2), j - Math.abs(this.getDim()[1]/2), k - Math.abs(this.getDim()[2]/2));
+			filledParcels.add(newP);
 	}
 
 	/*
