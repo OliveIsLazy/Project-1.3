@@ -43,11 +43,21 @@ public class Parcel3D extends JComponent
   public Parcel3D(int wichOne)
   {
     this.wichOne = wichOne;
-    color = colors[wichOne];
+
+    color = colors[this.wichOne];
     for (int i = 0; i < coordOfAll[0].length ; i++)
         for (int j = 0; j < 3; ++j)
-            coords[i][j] = coordOfAll[wichOne][i][j]*scale;
+            coords[i][j] = coordOfAll[this.wichOne][i][j]*scale;
   }
+   public Parcel3D(String wichOne)
+  {
+    if (wichOne.equals("A")) Parcel3D(0);
+    else if (wichOne.equals("B")) Parcel3D(1);
+    else if (wichOne.equals("C")) Parcel3D(2);
+    else if (wichOne.equals("cargo")) Parcel3D(3);
+    else System.out.println("wrong type of Parcel");
+  }
+  
 
 //
   public void setPlace(int newx, int newy, int newz)
@@ -63,17 +73,17 @@ public class Parcel3D extends JComponent
   public void translationsX(int addx)
   {
     for(int i = 0; i<coords.length; i++)
-      coords[i][0] += addx;
+      coords[i][0] += addx*scale;
   }
   public void translationsY(int addy)
   {
     for(int i = 0; i<coords.length; i++)
-      coords[i][1] += addy;
+      coords[i][1] += addy*scale;
   }
   public void translationsZ(int addz)
   {
     for(int i = 0; i<coords.length; i++)
-      coords[i][1] += addz;
+      coords[i][1] += addz*scale;
   }
 
   public Color getColor()
@@ -171,13 +181,12 @@ public class Parcel3D extends JComponent
 
 //PI - acos(((-projCenter[0])*100 + (-projCenter[1])*0 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100))
 
-    double deltaX = PI - asin(((-projCenter[1])*100)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
-    double deltaY = PI - asin(((-projCenter[0])*100 + (-projCenter[1])*0 + (-projCenter[2])*0)/(sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2]))*100));
+    double deltaX = PI - asin((-projCenter[1])/sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2])));
+    double deltaY = PI - asin((-projCenter[0])/sqrt((-projCenter[0])*(-projCenter[0]) + (-projCenter[1])*(-projCenter[1]) + (-projCenter[2])*(-projCenter[2])));
     double deltaZ = 0;
     //    double deltaX = PI/4;
   //  double deltaY = 0;
     //double deltaZ = 0;
-
 
     double cX = Math.cos(deltaX);
     double cY = Math.cos(deltaY);
@@ -197,12 +206,32 @@ public class Parcel3D extends JComponent
       double Z = coordsForProj[2][k] - projCenter[2];
 
 
-      double dX = cY*(sZ*Y + cZ*X) - sY*Z;
-      double dY = sX*(cY*Z + sY*(sZ*Y + cZ*X)) + cX*(cZ*Y - sZ*X);
-      double dZ = cX*(cY*Z + sY*(sZ*Y + cZ*X)) - sX*(cZ*Y - sZ*X);
+      //double dX = cY*(sZ*Y + cZ*X) - sY*Z;
+      //double dY = sX*(cY*Z + sY*(sZ*Y + cZ*X)) + cX*(cZ*Y - sZ*X);
+      //double dZ = cX*(cY*Z + sY*(sZ*Y + cZ*X)) - sX*(cZ*Y - sZ*X);
 
-      m2D[0][k] = (dX*400)/(dZ*400)*200;
-      m2D[1][k] = (dY*400)/(dZ*400)*200;
+      double[][] mat1 = { {1,0,0},
+                          {0,cX,sX},
+                          {0,-sX,cX}};
+
+      double[][] mat2 = { {cY,0,-sY},
+                          {0,1,0},
+                          {sY,0,cY}};
+
+      double[][] mat3 = { {cZ,sZ,0},
+                          {-sZ,cZ,0},
+                          {0,0,1}};
+
+      double[][] mat4 = {{X},{Y},{Z}};
+
+      double[][] ds = multOfMatrices(multOfMatrices(multOfMatrices(mat1,mat2),mat3),mat4);
+
+      double dX = ds[0][0];
+      double dY = ds[1][0];
+      double dZ = ds[2][0];
+
+      m2D[0][k] = (dX*400)/(dZ*400)*500;
+      m2D[1][k] = (dY*400)/(dZ*400)*500;
 
   //    double[][] projMat = {  {1, 0, -(eX/eZ), 0},
   //                            {0, 1, -(eY/eZ), 0},
