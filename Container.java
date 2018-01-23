@@ -6,8 +6,9 @@ public class Container extends Parcel3D
 	private boolean[][][] cMatrix;
 	private int[] freePoint = new int[3];
 	private int containerNumber;
-	private int volume;
-	private ArrayList<Parcel3D> filledParcels;
+	private int volume = 0;
+	private int emptySpace = 128;
+	private ArrayList<Parcel3D> filledParcels = new ArrayList<Parcel3D>();
 	private static int counter = 0;
 	private static ArrayList<Container> v = new ArrayList<Container>();
 
@@ -40,6 +41,7 @@ public class Container extends Parcel3D
 		cloned.freePoint = freePoint;
 		cloned.containerNumber = containerNumber;
 		cloned.volume = volume;
+		cloned.emptySpace = emptySpace;
 		cloned.filledParcels = filledParcels;
 		return cloned;
 	}
@@ -52,7 +54,7 @@ public class Container extends Parcel3D
 			for(int k = 0; k<cMatrix[0][0].length; k++){
 				if( cMatrix[i][j][k] == false){
 					if(fit(i,j,k, p)){
-						// fill(i,j,k,p);
+						//fill(i,j,k,p);
 						freePoint[0] = i;
 						freePoint[1] = j;
 						freePoint[2] = k;
@@ -62,13 +64,24 @@ public class Container extends Parcel3D
 	}
 
 	// checking if a box can be fit for a given point
-	public boolean fit(int i, int j, int k, Parcel3D p){
+	public boolean fit(int i, int j, int k, Parcel3D p)
+	{
 		double[][] coords = p.getCoords();
-		for(int m = 0; m<coords.length; m++){
-			if ( i+ (int) (coords[m][0])<cMatrix.length && j+ (int) (coords[m][1])<cMatrix[0].length && k+ (int) (coords[m][2])<cMatrix[0][0].length )
-					if ( cMatrix[i+(int)(coords[m][0])] [j+(int)(coords[m][1])] [k+(int)(coords[m][2])] == true)
-							return false;
-	}
+		for(int m = 0; m<coords.length; m++)
+			if ( i + (int) (coords[m][0]) < cMatrix.length && j + (int) (coords[m][1])<cMatrix[0].length && k + (int) (coords[m][2])<cMatrix[0][0].length )
+			{
+				//System.out.println(i + (int) (coords[m][2]));
+				//System.out.println(i + (int) (coords[m][1]));
+				//System.out.println(i + (int) (coords[m][0]));
+				if (i+(int)(coords[m][0])>=0 && j+(int)(coords[m][1])>=0 && k+(int)(coords[m][2])>=0)
+				{
+				if ( cMatrix[i+(int)(coords[m][0])] [j+(int)(coords[m][1])] [k+(int)(coords[m][2])] == true)
+					return false;
+				}
+				else return false;
+			}
+			else
+				return false;
 	return true;
 	}
 
@@ -77,12 +90,13 @@ public class Container extends Parcel3D
 			double[][] coords = p.getCoords();
 			for(int m = 0; m<coords.length; m++){
 					if ( i+(int) (coords[m][0])<cMatrix.length && j+(int) (coords[m][1])<cMatrix[0].length && k+(int) (coords[m][2])<cMatrix[0][0].length )
-							cMatrix[ i+(int) (coords[m][0])][j+(int) (coords[m][1])][k+(int) (coords[m][2]) ] = true;
+							cMatrix[ i+(int) (coords[m][2])][j+(int) (coords[m][1])][k+(int) (coords[m][0]) ] = true;
 			}
 			// updateNumber();
 			updateVolume();
-			p.setPlace(i - Math.abs(this.getDim()[0]/2), j - Math.abs(this.getDim()[1]/2), k - Math.abs(this.getDim()[2]/2));
-			filledParcels.add(p);
+			Parcel3D newP = (Parcel3D) p.clone();
+			newP.setPlace(i - Math.abs(this.getDim()[0]/2), j - Math.abs(this.getDim()[1]/2), k - Math.abs(this.getDim()[2]/2));
+			filledParcels.add(newP);
 	}
 
 	/*
@@ -106,7 +120,6 @@ public class Container extends Parcel3D
 		v.add(this);
 		return false;
 	}
-
 	// print the nummbers of the cointainers in the vector
 	public void printVector()
 	{
@@ -117,14 +130,12 @@ public class Container extends Parcel3D
 			System.out.print(x.getNumber() + " ");
 		}
 	}
-
 	// checking if the other object is a container with the same cMatrix as this.
 	public boolean sameMatrix(Object otherObject)
 	{
 		if (otherObject == null) return false;
 		if (getClass() != otherObject.getClass()) return false;
 		Container other = (Container) otherObject;
-
 		for (int i=0; i<cMatrix.length; i++)
 				for (int j=0; j<cMatrix[i].length; j++)
 						for (int k=0; k<cMatrix[i][j].length; k++)
@@ -140,13 +151,17 @@ public class Container extends Parcel3D
 
 	public void updateVolume()
 	{
-		int sum = 0;
+		int sumV = 0;
+		int sumE = 0;
 		for(int i = 0; i<cMatrix.length; i++)
 			for(int j = 0; j<cMatrix[0].length; j++)
 				for(int k = 0; k<cMatrix[0][0].length; k++)
 					if (cMatrix[i][j][k])
-							sum++;
-		volume = sum;
+							sumV++;
+					else
+							sumE++;
+		volume = sumV;
+		emptySpace = sumE;
 	}
 
 	// setters and getters
@@ -161,6 +176,9 @@ public class Container extends Parcel3D
 
 	public int getVolume()
 	{ return volume; }
+
+	public int getEmptySpace()
+	{ return emptySpace; }
 
 	public ArrayList<Parcel3D> getFilledParcels()
 	{ return filledParcels; }
