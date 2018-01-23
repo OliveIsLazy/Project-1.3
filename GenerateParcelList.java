@@ -1,8 +1,10 @@
 import java.lang.Math;
+import java.util.*;
 
 public class GenerateParcelList
 {
       private Parcel3D[] parcelsList;
+      private ArrayList<Parcel3D> parcelsList2 = new ArrayList<Parcel3D>();
 
       public GenerateParcelList(int n, String s)
       {
@@ -17,8 +19,11 @@ public class GenerateParcelList
             uniform(2);
       }
 
-      public Parcel3D[] getList()
-      { return parcelsList; }
+      public ArrayList<Parcel3D> getList()
+      {
+        parcelsList2 = transfer(parcelsList);
+        return parcelsList2;
+      }
 
       public void print()
       {
@@ -45,6 +50,14 @@ public class GenerateParcelList
         for (int i=0; i<parcelsList.length; i++)
            parcelsList[i] = new Parcel3D(t);
            //System.out.println(t);
+      }
+
+      public ArrayList<Parcel3D> transfer(Parcel3D[] l1)
+      {
+        ArrayList<Parcel3D> l2 = new ArrayList<Parcel3D>();
+        for (int i=0; i<l1.length; i++)
+            l2.add(l1[i]);
+        return l2;
       }
 
 } // class

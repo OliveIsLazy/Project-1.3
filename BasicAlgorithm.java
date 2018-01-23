@@ -4,25 +4,23 @@ import java.util.*;
 public class BasicAlgorithm
 {
     private Container container;
-    private Parcel3D[] boxList;
-    private ArrayList<Parcel3D> boxList2;
+    private ArrayList<Parcel3D> boxList;
     private Container best;
 
-    public BasicAlgorithm(Container c, Parcel3D[] pList)
+    public BasicAlgorithm(Container c, ArrayList<Parcel3D> pList)
     {
       container = c;
       boxList = pList;
-      boxList2 = transfer(boxList);
-      boxList2 = translate(boxList2);
+      boxList = translate(boxList);
     }
 
     public double maximize(String type)
     {
         double max = 0;
         if ( type.toLowerCase().equals("value") )
-                max = maximizeValue(boxList2.size()-1, boxList2, container);
+                max = maximizeValue(boxList.size()-1, boxList, container);
         // if ( type.toLowerCase().equals("volume") )
-                // max = maximizeVolume(boxList2.size()-1, boxList2, container);
+                // max = maximizeVolume(boxList.size()-1, boxList, container);
         return max;
     }
 
@@ -101,7 +99,7 @@ public class BasicAlgorithm
           // option 2- with this box
           Container c2 = (Container) c.clone();
           int[] free = c2.getFreePoint();
-          c2.fill(free[0],free[1],free[2], boxList2.get(index));
+          c2.fill(free[0],free[1],free[2], boxList.get(index));
           int temp2 = maximizeVolume(index - 1, list, c2);
           // take the best result
           if (resultVolume < Math.max(temp1, temp2))
@@ -116,14 +114,6 @@ public class BasicAlgorithm
     }
     */
 
-    public ArrayList<Parcel3D> transfer(Parcel3D[] l1)
-    {
-      ArrayList<Parcel3D> l2 = new ArrayList<Parcel3D>();
-      for (int i=0; i<l1.length; i++)
-          l2.add(l1[i]);
-      return l2;
-    }
-
     public ArrayList<Parcel3D> translate(ArrayList<Parcel3D> l)
     {
       for (int i=0; i<l.size(); i++)
@@ -135,14 +125,13 @@ public class BasicAlgorithm
     { return best; }
 
     public ArrayList<Parcel3D> getList()
-    { return boxList2; }
-
+    { return boxList; }
 
     public static void main(String[] args)
     {
       Container container = new Container();
       GenerateParcelList generator = new GenerateParcelList(4, "random");
-      Parcel3D[] parcelsList = generator.getList();
+      ArrayList<Parcel3D> parcelsList = generator.getList();
       System.out.println("Parcels list: ");
       generator.print();
       BasicAlgorithm myAlgorithm = new BasicAlgorithm(container, parcelsList);
@@ -150,10 +139,9 @@ public class BasicAlgorithm
       double x = myAlgorithm.maximize("value");
       System.out.println("Result value: " + x);
       // max volume
-      double y = myAlgorithm.maximize("volume");
-      System.out.println("Result volume: " + y);
+      //double y = myAlgorithm.maximize("volume");
+      //System.out.println("Result volume: " + y);
     }
-
 
 
 } // class
