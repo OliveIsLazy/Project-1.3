@@ -20,7 +20,7 @@ public class Test
 
   public void start()
   {
-    double[] projPoint = {20.0, 30.0, 40.0};
+    double projPoint = 500.0;
 
     JFrame frame = new JFrame();
     final int FRAME_WIDTH = 700;

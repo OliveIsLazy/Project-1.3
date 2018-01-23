@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.*;
 import java.awt.Polygon;
 import static java.lang.Math.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Parcel3D extends JComponent
 {
@@ -35,14 +37,19 @@ public class Parcel3D extends JComponent
   private double xLeft;
   private double yTop;
   //to facilte fisibility
-  private int scale = 4;
+  private int scale = 20;
 
-  private double[] projPoint;
+  private double projPoint;
 
   private static double[] values = {3, 4, 5, 0};
   private double value;
   private static String[] names = {"A", "B", "C", "Cargo"};
   private String name;
+
+  private double deltaX;
+  private double deltaY;
+  private double deltaZ;
+
 
   //constructor
   public Parcel3D(String wichOne)
@@ -59,6 +66,10 @@ public class Parcel3D extends JComponent
             coords[i][j] = coordOfAll[this.wichOne][i][j]*scale;
     value = values[this.wichOne];
     name = names[this.wichOne];
+
+    deltaX = 0;
+    deltaY = 0;
+    deltaZ = 0;
   }
 
   public Parcel3D(int wichOne)
@@ -70,6 +81,10 @@ public class Parcel3D extends JComponent
             coords[i][j] = coordOfAll[this.wichOne][i][j]*scale;
     value = values[this.wichOne];
     name = names[this.wichOne];
+
+    deltaX = 0;
+    deltaY = 0;
+    deltaZ = 0;
   }
 
 //
@@ -119,7 +134,7 @@ public class Parcel3D extends JComponent
     coords[n][2] = value;
   }
 
-  public void setProjPoint(double[] projp)
+  public void setProjPoint(double projp)
   {
     projPoint = projp;
   }
@@ -139,6 +154,12 @@ public class Parcel3D extends JComponent
   public void setColor(Color c)
   {
     color = c;
+  }
+
+  public void setDeltaXY(double dX, double dY)
+  {
+    deltaX = dX;
+    deltaY = dY;
   }
 
   public double[][] getCoords()
@@ -185,7 +206,8 @@ public class Parcel3D extends JComponent
     }
   }
 
-  public static double[][] proj2D(double[][] m3D, double[] projCenter)
+
+  public double[][] proj2D(double[][] m3D, double projCenter)
   {
     double[][] coordsForProj = new double[m3D[0].length + 1][m3D.length];
     for(int i = 0; i < m3D.length; i++)
@@ -193,18 +215,72 @@ public class Parcel3D extends JComponent
         coordsForProj[j][i] = m3D[i][j];
     for(int i = 0; i < m3D.length; i++)
       coordsForProj[3][i] = 1;
-    printArray(coordsForProj);
+    //printArray(coordsForProj);
     //x1 x2 x3
     //y1 y2 y3
     //z1 z2 z3
     //1  1  1
     double[][] m2D = new double[2][m3D.length];
+    double zoom = 1.5;
+
+    double cX = Math.cos(deltaX/180*PI);
+    double cY = Math.cos(deltaY/180*PI);
+    double cZ = Math.cos(deltaZ/180*PI);
+
+    double sX = Math.sin(deltaX);
+    double sY = Math.sin(deltaY);
+    double sZ = Math.sin(deltaZ);
+
+    double[][] Rx = { {1,0,0,0},
+                      {0,cX,sX,0},
+                      {0,-sX,cX,0},
+                      {0,0,0,1}
+                    };
+
+    double[][] Ry = { {cY,0,-sY,0},
+                      {0,1,0,0},
+                      {sY,0,cY,0},
+                      {0,0,0,1}
+                    };
+
+    double[][] Rz = { {cZ,sZ,0,0},
+                      {-sZ,cZ,0,0},
+                      {0,0,1,0},
+                      {0,0,0,1}
+                    };
+
+    double[][] coordsForProjRotated = multOfMatrices(multOfMatrices(multOfMatrices(Rx,Ry),Rz),coordsForProj);
+
+    double[][] zoomMat = {{zoom,0,0,0},
+                          {0,zoom,0,0},
+                          {0,0,zoom,0},
+                          {0,0,0,1}
+                        };
+
+    coordsForProjRotated = multOfMatrices(zoomMat, coordsForProjRotated);
+
+    double[][] projMatrix = { {1,0,0,0},
+                              {0,1,0,0},
+                              {0,0,0,0},
+                              {0,0,-1/projCenter,1}};
+    //printArray(projMatrix);
 
 
-    //  double deltaX = -projCenter[0];
-    //  double deltaY = -projCenter[1];
-    //  double deltaZ = -projCenter[2];
-    // what  works
+    double[][] vertex = multOfMatrices(projMatrix, coordsForProjRotated);
+    //printArray(vertex);
+
+    for(int k = 0; k < m3D.length; k++)
+    {
+      m2D[0][k] = (vertex[0][k])/(vertex[3][k]);
+      m2D[1][k] = (vertex[1][k])/(vertex[3][k]);
+    }
+    //printArray(m2D);
+
+
+
+
+/*
+    // result of tests
     //point of projection : (100,0,0)  (0,100,0)  (0,0,100)
     //deltas: PI/2,0,0                    OK
     //        0,PI/2,0        OK
@@ -261,8 +337,11 @@ public class Parcel3D extends JComponent
       double dY = ds[1][0];
       double dZ = ds[2][0];
 
-      m2D[0][k] = (dX*400)/(dZ*400)*500;
-      m2D[1][k] = (dY*400)/(dZ*400)*500;
+      m2D[0][k] = (dX)/(dZ)*500;
+      m2D[1][k] = (dY)/(dZ)*500;
+*/
+
+//______________________________________________________________________________________________________________
 
   //    double[][] projMat = {  {1, 0, -(eX/eZ), 0},
   //                            {0, 1, -(eY/eZ), 0},
@@ -292,19 +371,13 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
     //---
       m2D[0][k] = (int)(((eZ / dZ) * dX) - eX);
       m2D[1][k] = (int)(((eZ / dZ) * dY) - eY);
-*/
 
 
 
     }
+    */
     return m2D;
   }
-
-
-
-
-
-
 
   public static double[][] multOfMatrices(double[][] a, double[][] b)
   {
