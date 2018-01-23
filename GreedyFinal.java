@@ -1,18 +1,25 @@
 public class GreedyFinal
 {	
-	private static String parPent = "parcel";
-	private static String[] order = orderType("value");
-	private static Container box = new Container(); 
+	private static String parPent;
+	private static String[] order;
+	private static Container2 box = new Container2(); 
 	private static int[] counter = new int[3];
+	//private static ArrayList<Parcel> list
 	
 	private static double totalVolume = 0;
 	private static double totalValue = 0;
+	
+	public GreedyFinal(String type, String whichorder){
+	parPent = type;
+	order = orderType(whichorder);
+	checkFit(0);
+	}
 	
 	public static void main(String[] args){
 		
 		//Method which orders parcels based on maximum value/volume/density
 			
-		checkFit(0);
+	GreedyFinal greedy = new GreedyFinal("parcel" , "value");
 		
 	for(int i = 0; i<3; i++){
 		System.out.println( order[i] + ": " + counter[i]);
@@ -21,10 +28,13 @@ public class GreedyFinal
 	
 	System.out.println("Volume: " + totalVolume);
 	System.out.println("Value: " + totalValue);
- 
 	
-		
-	}
+	
+	
+	box.printList();
+	 }
+	 
+	 
 	//method which checks if most optimal parcel fits and puts it into container
 	public static void checkFit(int i){
 		if(i >= 3){
@@ -161,6 +171,19 @@ public class GreedyFinal
     	
     	return order;
     		
+    }
+    
+    public static int getFirstCoordinate(int i, int j){
+    	
+    	int coord = box.getCoordinates(i, j);
+    	return coord;
+    
+    }
+    
+    public static Parcel getParcelList(int i){
+    	Parcel list = box.getList(i);
+    	return list;
+    
     }
 
 
