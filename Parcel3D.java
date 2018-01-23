@@ -227,9 +227,9 @@ public class Parcel3D extends JComponent
     double cY = Math.cos(deltaY/180*PI);
     double cZ = Math.cos(deltaZ/180*PI);
 
-    double sX = Math.sin(deltaX);
-    double sY = Math.sin(deltaY);
-    double sZ = Math.sin(deltaZ);
+    double sX = Math.sin(deltaX/180*PI);
+    double sY = Math.sin(deltaY/180*PI);
+    double sZ = Math.sin(deltaZ/180*PI);
 
     double[][] Rx = { {1,0,0,0},
                       {0,cX,sX,0},
@@ -411,6 +411,11 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
     cloned.yTop = yTop;
     cloned.scale = scale;
     cloned.projPoint = projPoint;
+    cloned.value = value;
+    cloned.name = name;
+    cloned.deltaX = deltaX;
+    cloned.deltaY = deltaY;
+    cloned.deltaZ = deltaZ;
     return cloned;
   }
 
