@@ -63,6 +63,10 @@ public class Drawer  extends JComponent implements MouseListener, MouseMotionLis
      delY -= (newMouseX - mouseX)*0.2;
      delX += (newMouseY - mouseY)*0.2;
 
+     //System.out.println(" delta x " + delX + " delta y " + delY);
+    //System.out.println("cosx : " + Math.cos(delX/180*PI) + "cosy :" + Math.cos(delY/180*PI));
+    //System.out.println("sinx : " + Math.sin(delX/180*PI) + "siny :" + Math.sin(delY/180*PI));
+
      for(int i = 0; i < parcels.length; i++)
        parcels[i].setDeltaXY(delX, delY);
 
@@ -74,7 +78,11 @@ public class Drawer  extends JComponent implements MouseListener, MouseMotionLis
      e.consume();
   }
 
-
+  public void update(Parcel3D[] par)
+  {
+    parcels = par;
+    this.repaint();
+  }
 
 
 

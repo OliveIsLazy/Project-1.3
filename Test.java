@@ -17,25 +17,48 @@ public class Test
   private ArrayList<Parcel3D> parcels;
   private Drawer drawer;
   private JPanel panelDraw;
+  private double totalValue;
+  private double totalVolume;
 
+
+  public static void main(String[] args)
+  {
+    Test t = new Test();
+    t.start();
+  }
   public void start()
   {
-    double projPoint = 500.0;
+    //Z coordinate of the camera
+    double projPoint = 400.0;
 
+    //panel with all the drawings
+    panelDraw = new JPanel(new BorderLayout());
+    //list with the set of parcel that are draw
+    parcels = new ArrayList<Parcel3D>();
+    //the drawer itself
+    drawer = new Drawer(parcels, projPoint);
+    panelDraw.add(drawer);
+
+    //initialisation of the frame
     JFrame frame = new JFrame();
     final int FRAME_WIDTH = 700;
     final int FRAME_HEIGHT = 800;
     frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-    frame.setTitle("parcel ?");
+    frame.setTitle("3D visualisation of the filling of the container");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    JPanel finalPanel = new JPanel();
+    finalPanel.setLayout(new BorderLayout());
 
+    //panel with the GUI
     JPanel panelInterface = new JPanel(new GridLayout(4, 0));
 
     JComboBox whichAlgo = new JComboBox();
     whichAlgo.addItem("Greedy");
     whichAlgo.addItem("Back-tracking");
     whichAlgo.addItem("Dynamic");
+    whichAlgo.addItem("Exemple");
+
 
     JPanel panelValues  = new JPanel(new GridLayout(6,0));
 
@@ -62,7 +85,6 @@ public class Test
     panelValues.add(cValueText);
     panelValues.add(cValue);
 
-    panelDraw = new JPanel(new BorderLayout());
 
     JPanel results = new JPanel();
     results.setLayout(new GridLayout(2, 0));
@@ -75,12 +97,6 @@ public class Test
     results.add(totalValueText);
     results.add(fillingRateText);
 
-    parcels = new ArrayList<Parcel3D>();
-
-    parcels.add(new Parcel3D("A"));
-    parcels.add(new Parcel3D("C"));
-    parcels.add(new Parcel3D("Cargo"));
-
     class ClickListener implements ActionListener
     {
       public void actionPerformed(ActionEvent event)
@@ -88,32 +104,38 @@ public class Test
           if ((String) whichAlgo.getSelectedItem() == "Greedy")
           {
             System.out.println("Greedy");
-            totalValueText.setText("Total value :" + "\n" + 0.1);
-            fillingRateText.setText("Filling rate :" + 0.1 + "%");
+            Greedy();
+            totalValueText.setText("Total value :" + "\n" + totalValue);
+            fillingRateText.setText("Filled volume :" + totalVolume/(4*4*4) + "");
           }
           else if ((String) whichAlgo.getSelectedItem() == "Back-tracking")
           {
             System.out.println("Back-tracking");
-          /*  Container container = new Container();
-            GenerateParcelList generator = new GenerateParcelList(4, "C");
-            Parcel3D[] ParcelsList = generator.getList();
-            System.out.println("Parcels list: ");
-            generator.print();
-            BasicAlgorithm myAlgorithm = new BasicAlgorithm(container, ParcelsList);
-            // max value
-            double x = myAlgorithm.maximize("value");
-            System.out.println("Result value: " + x);
-            parcels = myAlgorithm.getContainer().getFilledParcels();
-            */
+            BackTr();
           }
           else if ((String) whichAlgo.getSelectedItem() == "Dynamic")
           {
             System.out.println("Dynamic");
+            DynAl();
             totalValueText.setText("Total value :" + "\n" + 0.3);
             fillingRateText.setText("Filling rate :" + 0.3 + "%");
           }
+          else if ((String) whichAlgo.getSelectedItem() == "Exemple")
+          {
+            System.out.println("Exemple");
+            exemple();
+          }
+
+          Parcel3D[] parcelsArray = new Parcel3D[parcels.size()];
+          for(int i = 0; i < parcels.size(); i++)
+            parcelsArray[i] = parcels.get(i);
+          drawer.update(parcelsArray);
       }
     }
+
+    // start
+
+    // end
 
     ActionListener calculate = new ClickListener();
 
@@ -125,14 +147,6 @@ public class Test
     panelInterface.add(results);
     panelInterface.add(calcButton);
 
-    if (parcels != null)
-    {
-      drawer = new Drawer(parcels, projPoint);
-      panelDraw.add(drawer);
-    }
-
-    JPanel finalPanel = new JPanel();
-    finalPanel.setLayout(new BorderLayout());
     finalPanel.add(panelDraw, BorderLayout.CENTER);
     finalPanel.add(panelInterface, BorderLayout.LINE_END);
 
@@ -140,173 +154,80 @@ public class Test
 
     frame.setVisible(true);
   }
-  public static void main(String[] args)
+  public ArrayList<Parcel3D> transfer(Parcel3D[] l1)
   {
-    Test t = new Test();
-    t.start();
+    ArrayList<Parcel3D> l2 = new ArrayList<Parcel3D>();
+    for (int i=0; i<l1.length; i++)
+        l2.add(l1[i]);
+    return l2;
+  }
+
+
+  public static void printArray(double[][] a)
+  {
+    for(int i = 0; i < a.length; i++)
+    {
+      for(int j = 0; j < a[i].length; j++)
+      System.out.print(a[i][j] + " ");
+      System.out.println("");
+    }
+    System.out.println("");
+  }
+
+  public void Greedy()
+  {
+    GreedyFinal greedy = new GreedyFinal("parcel" , "value");
+    greedy.start();
+    ArrayList<Parcel3D> greedyList = new ArrayList<Parcel3D>();
+    Parcel3D cargo = new Container();
+    cargo.setPlace(0,0,0);
+    greedyList.add(cargo);
+    for (int i = 0; greedy.getParcelList(i) != null; i++)
+    {
+      Parcel temp = greedy.getParcelList(i);
+      Parcel3D temp3D = new Parcel3D(temp.getName());
+      temp3D.setPlace(greedy.getFirstCoordinate(i, 2)*2-cargo.getDim()[1]/2-25,greedy.getFirstCoordinate(i, 1)*2-cargo.getDim()[1]/2+2, greedy.getFirstCoordinate(i, 0)*2-cargo.getDim()[2]/2+2);
+      greedyList.add(temp3D);
+    }
+    totalValue = greedy.getFilledValue();
+    totalVolume = greedy.getFilledVolume();
+
+    parcels = greedyList;
+  }
+
+  public void BackTr()
+  {
+    Container container = new Container();
+    GenerateParcelList generator = new GenerateParcelList(1, "random");
+    Parcel3D[] parcelsList = generator.getList();
+    System.out.println("Parcels list: ");
+    generator.print();
+    BasicAlgorithm myAlgorithm = new BasicAlgorithm(container, parcelsList);
+
+    // max value
+    //double x = myAlgorithm.maximize("value");
+    //System.out.println("Result value: " + x);
+    //parcels = myAlgorithm.getContainer().getFilledParcels();
+    //parcels = myAlgorithm.getList();
+    //parcels = transfer(parcelsList);
+    printArray(parcelsList[0].getCoords());
+
+  }
+
+  public void DynAl()
+  {
+
+  }
+  public void exemple()
+  {
+    ArrayList<Parcel3D> explList = new ArrayList<Parcel3D>();
+    explList.add(new Parcel3D("A"));
+    explList.add(new Parcel3D("C"));
+    //explList.add(new Parcel3D("Cargo"));
+    Parcel3D cargo = new Container();
+    cargo.setPlace(0,0,0);
+    explList.add(cargo);
+    parcels = explList;
+
   }
 }
-/*
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-final public class AnimationTest
-{
-    JFrame frame;
-    DrawPanel drawPanel;
-    private int oneX = 7;
-    private int oneY = 7;
-    boolean up = false;
-    boolean down = true;
-    boolean left = false;
-    boolean right = true;
-    public static void main(String... args)
-    {
-        new AnimationTest().go();
-    }
-    private void go()
-    {
-        frame = new JFrame("Test");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        drawPanel = new DrawPanel();
-        frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
-        frame.setResizable(false);
-        frame.setSize(300, 300);
-        frame.setLocationByPlatform(true);
-        frame.setVisible(true);
-        moveIt();
-    }
-    class DrawPanel extends JPanel
-    {
-        private static final long serialVersionUID = 1L;
-        public void paintComponent(Graphics g)
-        {
-            g.setColor(Color.BLUE);
-            g.fillRect(0, 0, this.getWidth(), this.getHeight());
-            g.setColor(Color.RED);
-            g.fillRect(3, 3, this.getWidth() - 6, this.getHeight() - 6);
-            g.setColor(Color.WHITE);
-            g.fillRect(6, 6, this.getWidth() - 12, this.getHeight() - 12);
-            g.setColor(Color.BLACK);
-            g.fillRect(oneX, oneY, 6, 6);
-        }
-    }
-    private void moveIt()
-    {
-        while (true)
-        {
-            if (oneX >= 283)
-            {
-                right = false;
-                left = true;
-            }
-            if (oneX <= 7)
-            {
-                right = true;
-                left = false;
-            }
-            if (oneY >= 259)
-            {
-                up = true;
-                down = false;
-            }
-            if (oneY <= 7)
-            {
-                up = false;
-                down = true;
-            }
-            if (up) oneY--;
-            if (down) oneY++;
-            if (left) oneX--;
-            if (right) oneX++;
-            try
-            {
-                Thread.sleep(10);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            frame.repaint();
-        }
-    }
-}
-*/
-/*
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import static java.lang.Math.*;
-import javax.swing.*;
-public class AnimationTest extends JPanel {
-double[][] nodes = { {-1, 0.5, 0.5}, {-1, -0.5, 0.5}, {-1, 0.5, -0.5}, {-1, -0.5, -0.5}, {1, 0.5, 0.5}, {1, -0.5, 0.5}, {1, 0.5, -0.5}, {1, -0.5,- 0.5}};
-//conectios between points
-int[][] edges = {{0, 1}, {1, 3}, {3, 2}, {2, 0}, {4, 5}, {5, 7}, {7, 6},
-{6, 4}, {0, 4}, {1, 5}, {2, 6}, {3, 7}};
-public AnimationTest() {
-setPreferredSize(new Dimension(640, 640));
-setBackground(Color.white);
-scale(70);
-//rotateCube(PI / 4, atan(sqrt(2)));
-new Timer(500, (ActionEvent e) -> {
-rotateCube(PI / 2, 0);
-repaint();
-}).start();
-}
-final void scale(double s) {
-for (double[] node : nodes) {
-node[0] *= s;
-node[1] *= s;
-node[2] *= s;
-}
-}
-final void rotateCube(double angleX, double angleY) {
-double sinX = sin(angleX);
-double cosX = cos(angleX);
-double sinY = sin(angleY);
-double cosY = cos(angleY);
-for (double[] node : nodes) {
-double x = node[0];
-double y = node[1];
-double z = node[2];
-node[0] = x * cosX - z * sinX;
-node[2] = z * cosX + x * sinX;
-z = node[2];
-node[1] = y * cosY - z * sinY;
-node[2] = z * cosY + y * sinY;
-}
-}
-void drawCube(Graphics2D g) {
-g.translate(getWidth() / 2, getHeight() / 2);
-for (int[] edge : edges) {
-double[] xy1 = nodes[edge[0]];
-double[] xy2 = nodes[edge[1]];
-g.drawLine((int) round(xy1[0]), (int) round(xy1[1]),
-(int) round(xy2[0]), (int) round(xy2[1]));
-}
-for (double[] node : nodes)
-g.fillOval((int) round(node[0]) - 4, (int) round(node[1]) - 4, 8, 8);
-}
-@Override
-public void paintComponent(Graphics gg) {
-super.paintComponent(gg);
-Graphics2D g = (Graphics2D) gg;
-g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-RenderingHints.VALUE_ANTIALIAS_ON);
-drawCube(g);
-}
-public static void main(String[] args) {
-SwingUtilities.invokeLater(() -> {
-JFrame f = new JFrame();
-f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-f.setTitle("Rotating Cube");
-f.setResizable(false);
-f.add(new AnimationTest(), BorderLayout.CENTER);
-f.pack();
-f.setLocationRelativeTo(null);
-f.setVisible(true);
-});
-}
-}
-*/

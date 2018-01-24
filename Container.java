@@ -163,9 +163,6 @@ public class Container extends Parcel3D
 	public int getNumber()
 	{ return containerNumber; }
 
-	public int getVolume()
-	{ return volume; }
-
 	public ArrayList<Parcel3D> getFilledParcels()
 	{ return filledParcels; }
 

@@ -33,11 +33,12 @@ public class Parcel3D extends JComponent
   private Color color;
   //to know wich on we are using
   private int wichOne;
+  private double volume;
   // to define the place of the origin (0,0,0)
   private double xLeft;
   private double yTop;
   //to facilte fisibility
-  private int scale = 20;
+  private int scale = 4;
 
   private double projPoint;
 
@@ -70,6 +71,8 @@ public class Parcel3D extends JComponent
     deltaX = 0;
     deltaY = 0;
     deltaZ = 0;
+
+    volume = this.getDim()[0]*this.getDim()[1]*this.getDim()[2];
   }
 
   public Parcel3D(int wichOne)
@@ -81,10 +84,13 @@ public class Parcel3D extends JComponent
             coords[i][j] = coordOfAll[this.wichOne][i][j]*scale;
     value = values[this.wichOne];
     name = names[this.wichOne];
-
+    printArray(coords);
     deltaX = 0;
     deltaY = 0;
     deltaZ = 0;
+
+    volume = this.getDim()[0]*this.getDim()[1]*this.getDim()[2];
+
   }
 
 //
@@ -172,13 +178,19 @@ public class Parcel3D extends JComponent
     return wichOne;
   }
 
-  public double getValue() {
-        return value;
-    }
+  public double getValue()
+    {return value;}
 
-  public String getName() {
-          return name;
-  }
+  public double getVolume()
+    {return volume;}
+
+
+  public double getDensity()
+    {return value/volume;}
+
+
+  public String getName()
+    {return name;}
 
   public int getScale() {
             return scale;
@@ -202,6 +214,7 @@ public class Parcel3D extends JComponent
       Point2D.Double point1 = new Point2D.Double((xLeft + plan[0][link[i][0]-1]), (yTop + plan[1][link[i][0]-1]));
       Point2D.Double point2 = new Point2D.Double((xLeft + plan[0][link[i][1]-1]), (yTop + plan[1][link[i][1]-1]));
       Line2D.Double line = new Line2D.Double(point1, point2);
+      g2.setColor(color);
       g2.draw(line);
     }
   }
@@ -221,7 +234,6 @@ public class Parcel3D extends JComponent
     //z1 z2 z3
     //1  1  1
     double[][] m2D = new double[2][m3D.length];
-    double zoom = 1.5;
 
     double cX = Math.cos(deltaX/180*PI);
     double cY = Math.cos(deltaY/180*PI);
@@ -251,6 +263,7 @@ public class Parcel3D extends JComponent
 
     double[][] coordsForProjRotated = multOfMatrices(multOfMatrices(multOfMatrices(Rx,Ry),Rz),coordsForProj);
 
+    double zoom = 5;
     double[][] zoomMat = {{zoom,0,0,0},
                           {0,zoom,0,0},
                           {0,0,zoom,0},
@@ -416,6 +429,7 @@ double dZ = ((cosX*cosY*eZ) + (cosX*sinY*sinZ*eY) + (cosX*sinY*cosZ*eX)) - ((sin
     cloned.deltaX = deltaX;
     cloned.deltaY = deltaY;
     cloned.deltaZ = deltaZ;
+    cloned.volume = volume;
     return cloned;
   }
 
