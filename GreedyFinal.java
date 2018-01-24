@@ -16,7 +16,7 @@ public class GreedyFinal
 	}
 	
 	public static void main(String[] args){
-		
+	long time = System.nanoTime();	
 		//Method which orders parcels based on maximum value/volume/density
 			
 	GreedyFinal greedy = new GreedyFinal("parcel" , "value");
@@ -30,15 +30,14 @@ public class GreedyFinal
 	System.out.println("Value: " + totalValue);
 	
 	
-	
-	box.printList();
+	System.out.println(System.nanoTime() - time);
+	//box.printList();
 	 }
 	 
 	 
 	//method which checks if most optimal parcel fits and puts it into container
 	public static void checkFit(int i){
 		if(i >= 3){
-		System.out.println("Finished");
 		return;
 		}
 		else{
@@ -131,23 +130,19 @@ public class GreedyFinal
     	for(int i = 0; i<3; i++){
     		if( array[i] >= max){
     			if( array[i] > max){
-    				System.out.println("Max: " + array[i]);
     				max = array[i];
     				typeMax = type[i];
     			}
     			else{
-    				System.out.println("Mid: " + array[i]);
     				mid = array[i];
     				typeMid = type[i];
     		}}
     		if( array[i] <= min){
     			if( array[i] < min){
-    			System.out.println("Min: " + array[i]);
     			min = array[i];
     			typeMin = type[i];
     			}
     			else{
-    				System.out.println("Mid: " + array[i]);
     				mid = array[i];
     				typeMid = type[i];
     		}

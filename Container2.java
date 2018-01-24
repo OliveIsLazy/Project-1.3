@@ -3,8 +3,8 @@ public class Container2{
 	private boolean[][][] cMatrix;
 	private int volume;
 	private static int counter = 0;
-	private Parcel[] list = new Parcel[200];
-	private int[][] coordinates = new int[200][3];
+	private Parcel[] list = new Parcel[600];
+	private int[][] coordinates = new int[600][3];
 	private int parcelcounter = 0;
 
 	public Container2()
@@ -84,7 +84,7 @@ public class Container2{
 	}
 	
 	public void printList(){
-	for(int i = 0; i<200; i++){
+	for(int i = 0; i<600; i++){
 		if(list[i] != null){
 	System.out.println(coordinates[i][0] +" " + coordinates[i][1] + " " + coordinates[i][2] + " " + list[i].getName());
 	}}}
